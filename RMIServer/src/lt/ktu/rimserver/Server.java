@@ -22,13 +22,13 @@ public class Server extends UnicastRemoteObject implements Executor {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Object executeRemoteTask(RemoteTask task) throws RemoteException {
-		System.out.println("Executing task:  " +task);
+	public Object executeRemoteTask(Runnable task) throws RemoteException {
+		
+		
 		return null;
 	}
 	
 	public static void main(String[] args) {
-		
 		
 		try {
 			Server svc = new Server();
@@ -41,6 +41,11 @@ public class Server extends UnicastRemoteObject implements Executor {
 		} 
 	
 		
+	}
+
+	public Object executeRemoteTask(RemoteTask task) throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
