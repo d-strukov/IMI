@@ -7,6 +7,6 @@ import lt.ktu.rmi.transfare.RemoteTask;
 
 public interface Uplink extends Remote {
 
-	public void resultReady(RemoteTask res) throws RemoteException;
+	public void resultReady(Runnable res) throws RemoteException;
 
 }
