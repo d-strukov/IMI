@@ -3,6 +3,7 @@ package lt.ktu.rimserver;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
+import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -25,8 +26,16 @@ public class Server extends UnicastRemoteObject implements Executor {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Object executeRemoteTask(Runnable task) throws RemoteException {
+	public Object executeRemoteTask(final Runnable task) throws RemoteException {
 
+		Thread th = new Thread(new Runnable(){
+
+			@Override
+			public void run() {
+				task.run();
+				onTaskFinished(task);
+			}});
+		th.start();
 		return null;
 	}
 
@@ -34,6 +43,7 @@ public class Server extends UnicastRemoteObject implements Executor {
 
 		try {
 			Server svc = new Server();
+			
 			Registry reg = LocateRegistry.createRegistry(1100);
 			reg.rebind("ServerSvc", svc);
 			System.out.println("Service Binded");
@@ -43,21 +53,12 @@ public class Server extends UnicastRemoteObject implements Executor {
 
 	}
 
-	public Object executeRemoteTask(RemoteTask task) throws RemoteException {
 
-		task.setListener(new TaskEndListener() {
-
-			public void TaskFinished(RemoteTask task) {
-				onTaskFinished(task);
-
-			}
-		});
-		return null;
-	}
-
-	protected void onTaskFinished(RemoteTask task) {
+	protected void onTaskFinished(Runnable task) {
 		try {
-			Uplink lnk = (Uplink) Naming.lookup("rmi://localhost/UplinkSvc/");
+			
+			
+			Uplink lnk = (Uplink) Naming.lookup("rmi://localhost:1099/UplinkSvc");
 			lnk.resultReady(task);
 
 		} catch (MalformedURLException e) {
