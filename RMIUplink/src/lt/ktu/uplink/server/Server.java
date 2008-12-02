@@ -34,8 +34,8 @@ public class Server extends UnicastRemoteObject implements Uplink {
 		}
 	}
 
-	public void resultReady(RemoteTask res) {
-
+	public void resultReady(Runnable res) {
+		System.out.println("Result Received: " + res);
 	}
 
 }
