@@ -1,28 +1,16 @@
+import java.rmi.RMISecurityManager;
+
 import lt.ktu.rmi.semantics.Dispatcher;
-import lt.ktu.rmi.semantics.ResultContainer;
+import lt.ktu.rmi.transfare.Results;
+
 
 public class Main {
 
 	public static void main(String[] args) {
-		Dispatcher.dispatchTask(new ResultContainer() {
-
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = -8518293475176686602L;
-
-			public Object getResults() {
-
-				return null;
-			}
-
-			public void run() {
-				for (int i = 0; i < 10000; i++) {
-
-				}
-
-			}
-		});
+		Results c = new Results();
+//		RMISecurityManager sec = new RMISecurityManager();
+//		System.setSecurityManager(sec);
+		Dispatcher.dispatchTask(c);
 	}
 
 }
