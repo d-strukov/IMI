@@ -4,6 +4,6 @@ import java.io.Serializable;
 
 public interface ResultContainer extends Runnable, Serializable {
 
-	public Object getResults();
+	public Object getTask();
 
 }
