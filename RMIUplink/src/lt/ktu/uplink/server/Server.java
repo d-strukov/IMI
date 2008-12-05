@@ -6,7 +6,6 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
 import lt.ktu.rmi.interfaces.Uplink;
-import lt.ktu.rmi.transfare.RemoteTask;
 
 public class Server extends UnicastRemoteObject implements Uplink {
 
