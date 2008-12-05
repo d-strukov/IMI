@@ -1,15 +1,12 @@
-import java.rmi.RMISecurityManager;
-
 import lt.ktu.rmi.semantics.Dispatcher;
-import lt.ktu.rmi.transfare.Results;
-
+import lt.ktu.rmi.transfare.Task;
 
 public class Main {
 
 	public static void main(String[] args) {
-		Results c = new Results();
-//		RMISecurityManager sec = new RMISecurityManager();
-//		System.setSecurityManager(sec);
+		Task c = new Task();
+		// RMISecurityManager sec = new RMISecurityManager();
+		// System.setSecurityManager(sec);
 		Dispatcher.dispatchTask(c);
 	}
 
