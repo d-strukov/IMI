@@ -1,8 +1,10 @@
 package lt.ktu.dstrukov.scheduler.model;
 
+import lt.ktu.dstrukov.scheduler.model.collections.BaseCollection;
+import lt.ktu.dstrukov.scheduler.model.collections.CollectionItem;
 import lt.ktu.dstrukov.scheduler.model.misc.IDGenerator;
 
-public class Task extends AbstractBase {
+public class Task extends AbstractBase implements CollectionItem {
 
 	/**
 	 * 
@@ -33,6 +35,13 @@ public class Task extends AbstractBase {
 	public String toString() {
 		
 		return "Task["+getId()+"]";
+	}
+
+
+	@Override
+	public void setCollection(BaseCollection<?> collection) {
+		
+		
 	}
 
 }

@@ -4,5 +4,6 @@ public enum ResourceOwnerType {
 
 	Issuer,
 	Server,
-	Environment
+	Environment,
+	Unknown
 }

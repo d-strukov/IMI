@@ -1,8 +1,10 @@
 package lt.ktu.dstrukov.scheduler.model;
 
+import lt.ktu.dstrukov.scheduler.model.collections.BaseCollection;
+import lt.ktu.dstrukov.scheduler.model.collections.CollectionItem;
 import lt.ktu.dstrukov.scheduler.model.misc.IDGenerator;
 
-public class ResourceOwner extends AbstractBase {
+public class ResourceOwner extends AbstractBase implements CollectionItem {
 
 
 
@@ -71,6 +73,12 @@ public class ResourceOwner extends AbstractBase {
 	public String toString() {
 		
 		return "ResourceOwner["+getId()+"]";
+	}
+
+
+	@Override
+	public void setCollection(BaseCollection<?> collection) {
+				
 	}
 
 }

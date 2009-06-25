@@ -1,7 +1,10 @@
 package lt.ktu.dstrukov.scheduler.model;
 
+import lt.ktu.dstrukov.scheduler.model.collections.BaseCollection;
+import lt.ktu.dstrukov.scheduler.model.collections.CollectionItem;
 
-public abstract class AbstractResource extends AbstractBase {
+
+public abstract class AbstractResource extends AbstractBase implements CollectionItem {
 
 	/**
 	 * 
@@ -17,17 +20,21 @@ public abstract class AbstractResource extends AbstractBase {
 	/**
 	 * @return the resource owner
 	 */
-	protected ResourceOwner getOwner() {
+	public ResourceOwner getOwner() {
 		return owner;
 	}
 
 	/**
 	 * @param owner the owner to set
 	 */
-	protected void setOwner(ResourceOwner owner) {
+	public void setOwner(ResourceOwner owner) {
 		this.owner = owner;
 	}
 	
+	@Override
+	public void setCollection(BaseCollection<?> collection) {
+				
+	}
 
 	
 
