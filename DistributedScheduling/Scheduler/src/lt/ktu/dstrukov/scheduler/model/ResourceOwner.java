@@ -11,6 +11,41 @@ public class ResourceOwner extends AbstractBase {
 	 * 
 	 */
 	private static final long serialVersionUID = -6178263289529968750L;
+	
+	
+	public ResourceOwner(ResourceOwnerType type) {
+		super();
+		this.type =type;
+	}
+	
+	
+	private ResourceOwnerType type; 
+	
+	/**
+	 * @return the type
+	 */
+	public ResourceOwnerType getType() {
+		return type;
+	}
+
+
+	private String name;
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
 
 	private static int counter=-1;
 	
