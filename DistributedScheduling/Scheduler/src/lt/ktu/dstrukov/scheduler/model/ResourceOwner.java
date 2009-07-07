@@ -14,38 +14,24 @@ public class ResourceOwner extends AbstractBase implements CollectionItem {
 	 */
 	private static final long serialVersionUID = -6178263289529968750L;
 	
-	
-	public ResourceOwner(ResourceOwnerType type) {
-		super();
-		this.type =type;
-	}
-	
-	
-	private ResourceOwnerType type; 
-	
-	/**
-	 * @return the type
-	 */
-	public ResourceOwnerType getType() {
-		return type;
-	}
 
 
-	private String name;
+
+	private String description;
 
 	/**
-	 * @return the name
+	 * @return the description
 	 */
-	public String getName() {
-		return name;
+	public String getDescription() {
+		return description;
 	}
 
 
 	/**
-	 * @param name the name to set
+	 * @param description the name to set
 	 */
-	public void setName(String name) {
-		this.name = name;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 

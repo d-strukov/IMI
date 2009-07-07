@@ -2,7 +2,7 @@ package lt.ktu.dstrukov.scheduler.model.collections;
 
 
 import lt.ktu.dstrukov.scheduler.model.ResourceOwner;
-import lt.ktu.dstrukov.scheduler.model.ResourceOwnerType;
+import lt.ktu.dstrukov.scheduler.model.misc.IDGenerator;
 
 public class ResourceOwnerCollection extends BaseCollection<ResourceOwner> {
 
@@ -11,19 +11,23 @@ public class ResourceOwnerCollection extends BaseCollection<ResourceOwner> {
 	 */
 	private static final long serialVersionUID = -7651123455649683075L;
 	
-	private ResourceOwnerType type = ResourceOwnerType.Unknown;
+private static int counter=-1;
 	
-	
-	public boolean add(ResourceOwner o) {
-		if(type == ResourceOwnerType.Unknown){
-			type=o.getType();
-			return super.add(o);
-		} else {
-			if(type==o.getType()) return super.add(o);
-			else return false;			
+	private IDGenerator idGenerator = new IDGenerator(){
+
+		@Override
+		public int next() {
+			counter++;
+			return counter;
 		}
+		
 	};
 
-
+	@Override
+	protected IDGenerator getIDGenerator() {
+		
+		return idGenerator;
+	}
+	
 
 }

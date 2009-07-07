@@ -1,27 +1,35 @@
 package lt.ktu.dstrukov.scheduler.model.collections;
 
-import lt.ktu.dstrukov.scheduler.model.AbstractResource;
-import lt.ktu.dstrukov.scheduler.model.ResourceOwnerType;
+import lt.ktu.dstrukov.scheduler.model.Resource;
+import lt.ktu.dstrukov.scheduler.model.misc.IDGenerator;
 
-public class ResourceCollection extends BaseCollection<AbstractResource> {
+public class ResourceCollection extends BaseCollection<Resource> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -7651224156849683075L;
 	
-	private ResourceOwnerType type = ResourceOwnerType.Unknown;
+	private static int counter=-1;
 	
-	
-	public boolean add(AbstractResource o) {
-		if(type == ResourceOwnerType.Unknown){
-			type = o.getOwner().getType();
-			return super.add(o);
-		} else {
-			if(type==o.getOwner().getType()) return super.add(o);
-			else return false;			
+	private IDGenerator idGenerator = new IDGenerator(){
+
+		@Override
+		public int next() {
+			counter++;
+			return counter;
 		}
+		
 	};
+
+	@Override
+	protected IDGenerator getIDGenerator() {
+		
+		return idGenerator;
+	}
+	
+
+	
 
 
 

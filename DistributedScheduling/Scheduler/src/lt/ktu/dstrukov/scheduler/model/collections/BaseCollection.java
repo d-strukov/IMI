@@ -6,9 +6,12 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import lt.ktu.dstrukov.scheduler.model.AbstractBase;
 
 
-public class BaseCollection<S extends CollectionItem> implements Collection<S>,
+
+
+public abstract class BaseCollection<S extends CollectionItem> extends AbstractBase implements Collection<S>,
 		Serializable {
 	/**
 	 * 
@@ -22,7 +25,7 @@ public class BaseCollection<S extends CollectionItem> implements Collection<S>,
 
 	public boolean add(S o) {
 		boolean ret = data.add(o);
-		o.setCollection(this);
+		if(ret)	o.setCollection(this);
 		return ret;
 	}
 
