@@ -37,20 +37,22 @@ public class ResourceOwner extends AbstractBase implements CollectionItem {
 
 	private static int counter=-1;
 	
-	private IDGenerator idGenerator = new IDGenerator(){
-
-		@Override
-		public int next() {
-			counter++;
-			return counter;
-		}
-		
-	};
+	private IDGenerator idGenerator;
 	
 	
 	@Override
 	protected IDGenerator getIDGenerator() {
-		
+		if(idGenerator==null){
+			idGenerator = new IDGenerator(){
+
+				@Override
+				public int next() {
+					counter++;
+					return counter;
+				}
+				
+			};
+		}
 		return idGenerator;
 	}
 	
