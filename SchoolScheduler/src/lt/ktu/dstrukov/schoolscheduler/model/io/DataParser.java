@@ -12,12 +12,13 @@ import lt.ktu.dstrukov.schoolscheduler.model.Server;
 import lt.ktu.dstrukov.schoolscheduler.model.Student;
 import lt.ktu.dstrukov.schoolscheduler.model.StudentGroup;
 import lt.ktu.dstrukov.schoolscheduler.model.Teacher;
+import lt.ktu.dstrukov.schoolscheduler.utils.StringParser;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class DataParser{
+public class DataParser {
 
 	protected static final String DELIMITER2 = "#";
 
@@ -29,17 +30,15 @@ public class DataParser{
 
 	public DataParser(SchoolData d, File file) {
 		data = d;
+		System.out.println("File Found:  " + file.exists());
 		String path = "";
-		if (file == null)
-			path = "C:\\Documents and Settings\\Denis\\Desktop\\Linai Santrauka\\Daugiau_dalyku_naujas.xml";
-		else
-			path = file.getPath();
+		path = file.getPath();
 		reader = new XmlDataReader(path);
 
 		parseJobTypes(reader);
 		parseStudents(reader);
 		parseServers(reader);
-		
+
 	}
 
 	public void parseStudents(XmlDataReader read) {
@@ -49,7 +48,7 @@ public class DataParser{
 			StudentGroup group = new StudentGroup();
 			String gCode = read.getName(j);
 			group.setGroupDescription(gCode);
-			//data.addIssuerGroup(group);
+			data.addStudentGroup(group);
 
 			for (int i = 0; i < read.getRow_count(j); i++) {
 
@@ -76,14 +75,29 @@ public class DataParser{
 
 						if (k < 2)
 							continue;
-						
+
 						if (k < data.getTaskCollection().size() + 2) {
 							if (flag) {
-								int jobCount = Integer.parseInt(list
-										.getNodeValue());
+
+								String jobDescriptorString = list
+										.getNodeValue();
+								int splitIndex = jobDescriptorString.length();
+								String s = jobDescriptorString.substring(0,
+										splitIndex);
+
+								while (!StringParser.tryParseInt(s)) {
+									splitIndex--;
+									s = s.substring(0, splitIndex);
+								}
+
+								int jobCount = Integer.parseInt(s);
+								String level = jobDescriptorString
+										.substring(splitIndex);
+
 								for (int z = 0; z < jobCount; z++) {
-									Job job = new Job(student, data.getTaskBySequence(k - 2));
-									//data.getJobType(k - 2).addJob(job);
+									Job job = new Job(student, data
+											.getTaskBySequence(k - 2), level);
+									// data.getJobType(k - 2).addJob(job);
 									data.addJob(job);
 									student.addJob(job);
 								}
@@ -112,7 +126,6 @@ public class DataParser{
 
 			NodeList cells = eilute.getElementsByTagName("Cell");
 			Teacher teacher = new Teacher();
-			data.addTeacher(teacher);
 
 			String hours = "";
 			String codes = "";
@@ -131,7 +144,7 @@ public class DataParser{
 
 				switch (k) {
 				case 3:
-					// names
+
 					break;
 				case 5:
 					if (nnn != null)
@@ -152,10 +165,13 @@ public class DataParser{
 				}
 
 			}
-			
-			
-			parseJobTypesAndHours(teacher, hours, codes);
-			parseIssuerGroups(teacher, groups, codes);
+
+			if (!hours.isEmpty() || !codes.isEmpty() || !groups.isEmpty()) {
+				parseJobTypesAndHours(teacher, hours, codes);
+				parseIssuerGroups(teacher, groups, codes);
+
+				data.addTeacher(teacher);
+			}
 
 		}
 
@@ -180,7 +196,8 @@ public class DataParser{
 		String[] codeSplit = codes.trim().split(DELIMITER1);
 
 		if (hourSplit.length != codeSplit.length)
-			throw new RuntimeException("Error parsing Teacher: " + teacher.getId()
+			throw new RuntimeException("Error parsing Teacher: "
+					+ teacher.getId()
 					+ "; Reason: hour and code amount does not match");
 
 		List<Integer> h = new ArrayList<Integer>();
@@ -197,13 +214,13 @@ public class DataParser{
 		for (String str : codeSplit) {
 			SchoolTask jt = data.getTaskByCode(str);
 			if (jt == null)
-				throw new RuntimeException("JobType does not exist: " + str);
+				throw new RuntimeException("Task does not exist: " + str);
 			t.add(jt);
-			//jt.addServer(s);
+			// jt.addServer(s);
 		}
 
 		for (int i = 0; i < h.size(); i++) {
-			for (int j = 0; j< h.get(i); i++){
+			for (int j = 0; j < h.get(i); j++) {
 				Server s = new Server(t.get(i), teacher);
 				data.addServer(s);
 			}
@@ -211,8 +228,7 @@ public class DataParser{
 
 	}
 
-	protected void parseIssuerGroups(Teacher s, String toParse,
-			String codes) {
+	protected void parseIssuerGroups(Teacher s, String toParse, String codes) {
 
 		String[] classGroup = toParse.trim().split(DELIMITER2);
 		String[] codeSplit = codes.trim().split(DELIMITER1);
@@ -254,10 +270,16 @@ public class DataParser{
 			if (i > 0) {
 				NodeList cells = eilute.getElementsByTagName("Cell");
 				SchoolTask type = new SchoolTask();
+				boolean valid = false;
 
 				for (int k = 0; k < cells.getLength(); k++) {
+					valid = true;
 					NodeList d = eilute.getElementsByTagName("Data");
 					Node duom = d.item(k);
+					if (duom == null) {
+						valid = false;
+						break;
+					}
 					Node nnn = duom.getFirstChild();
 
 					if (k == 0) {
@@ -266,7 +288,8 @@ public class DataParser{
 					}
 
 				}
-				if (data.getTaskByCode(type.getCode()) != null)
+
+				if (valid && data.getTaskByCode(type.getCode()) != null)
 					type = data.getTaskByCode(type.getCode());
 
 				data.addTask(type);

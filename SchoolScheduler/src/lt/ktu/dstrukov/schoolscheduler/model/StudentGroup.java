@@ -31,8 +31,8 @@ public class StudentGroup implements Serializable {
 
 
 	public void setGroupDescription(String groupDescription) {
-		this.groupDescription = groupDescription;
-		int splitIndex = groupDescription.length()-1;
+		this.groupDescription = groupDescription.trim();
+		int splitIndex = groupDescription.length();
 		String s = groupDescription.substring(0,splitIndex);
 		
 		while(!StringParser.tryParseInt(s)){

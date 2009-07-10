@@ -10,7 +10,7 @@ public class Job extends Resource {
 	 */
 	private static final long serialVersionUID = 729247195478742339L;
 	
-	public Job(Student stud, SchoolTask task) {
+	public Job(Student stud, SchoolTask task, String level) {
 		stud.addJob(this);
 	}
 
