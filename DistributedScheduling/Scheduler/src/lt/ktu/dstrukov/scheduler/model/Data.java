@@ -22,7 +22,7 @@ public abstract class Data implements Serializable {
 	
 	public abstract TaskCollection getTaskCollection();
 	
-	protected abstract Map<Task, Map<ResourceCollection, MinMaxRequirement>> getResourceRequirements();
+	public abstract Map<Task, Map<ResourceCollection, MinMaxRequirement>> getResourceRequirements();
 	
 
 }
