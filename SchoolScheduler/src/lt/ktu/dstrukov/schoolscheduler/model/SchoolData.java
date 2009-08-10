@@ -101,7 +101,7 @@ public class SchoolData extends Data {
 	}
 
 	@Override
-	protected Map<Task, Map<ResourceCollection, MinMaxRequirement>> getResourceRequirements() {
+	public Map<Task, Map<ResourceCollection, MinMaxRequirement>> getResourceRequirements() {
 		return null;
 	}
 
