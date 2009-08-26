@@ -29,10 +29,5 @@ public class ResourceCollection extends BaseCollection<Resource> {
 		}
 		return idGenerator;
 	}
-	
-
-	
-
-
 
 }
