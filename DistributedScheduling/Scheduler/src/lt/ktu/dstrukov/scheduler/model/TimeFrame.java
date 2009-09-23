@@ -82,8 +82,5 @@ public class TimeFrame extends AbstractBase {
 	
 	}
 
-	public boolean cointainsIssuer(Resource issuer) {
-		return false;
-	}
 
 }

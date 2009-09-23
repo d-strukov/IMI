@@ -2,6 +2,7 @@ package lt.ktu.dstrukov.scheduler.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,8 +27,8 @@ public abstract class Data implements Serializable {
 	
 	public abstract Map<Task, Map<ResourceCollection, MinMaxRequirement>> getResourceRequirements();
 	
-	public List<List<Resource>> getCompatibleResources(Task task) throws InsufficientResourceException{
-		List<List<Resource>> ret = new ArrayList<List<Resource>>();
+	public Map<ResourceCollection, List<Resource>> getCompatibleResources(Task task) throws InsufficientResourceException{
+		Map<ResourceCollection, List<Resource>> ret = new HashMap<ResourceCollection, List<Resource>>();
 		
 		for(ResourceCollection c : getResourceCollections()){
 			List<Resource> res = new ArrayList<Resource>();
@@ -39,7 +40,7 @@ public abstract class Data implements Serializable {
 				throw new InsufficientResourceException(c,task);
 			}
 			
-			ret.add(res);
+			ret.put(c, res);
 		}
 		
 		
