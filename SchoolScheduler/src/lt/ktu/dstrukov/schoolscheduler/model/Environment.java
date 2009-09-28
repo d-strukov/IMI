@@ -9,19 +9,28 @@ public class Environment extends Resource {
 	 * 
 	 */
 	private static final long serialVersionUID = 6918929602403579253L;
-	
-	
+
+	private Room room;
+
+	public Room getRoom() {
+		return room;
+	}
+
+	public Environment(Room r) {
+		room = r;
+	}
 
 	@Override
 	public boolean isCompatibleWithResource(Resource res) {
+		if (!(res instanceof Job))
+			return true;
 
-		return false;
+		return getRoom().getCompatibleResources().contains(res);
 	}
 
 	@Override
 	public boolean isCompatibleWithTask(Task task) {
-
-		return false;
+		return getRoom().getCompatibleTasks().contains(task);
 	}
 
 }

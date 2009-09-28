@@ -32,7 +32,7 @@ public class Server extends Resource {
 	@Override
 	public boolean isCompatibleWithTask(Task task) {
 		
-		return false;
+		return this.task ==task;
 	}
 
 }

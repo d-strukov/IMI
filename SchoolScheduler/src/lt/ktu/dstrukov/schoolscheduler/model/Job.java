@@ -9,8 +9,10 @@ public class Job extends Resource {
 	 * 
 	 */
 	private static final long serialVersionUID = 729247195478742339L;
+	private SchoolTask task;
 	
 	public Job(Student stud, SchoolTask task, String level) {
+		this.task = task; 
 		stud.addJob(this);
 	}
 
@@ -23,7 +25,7 @@ public class Job extends Resource {
 	@Override
 	public boolean isCompatibleWithTask(Task task) {
 		
-		return false;
+		return this.task == task;
 	}
 
 }

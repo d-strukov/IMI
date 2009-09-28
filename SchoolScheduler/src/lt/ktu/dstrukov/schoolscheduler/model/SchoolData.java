@@ -1,12 +1,14 @@
 package lt.ktu.dstrukov.schoolscheduler.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import lt.ktu.dstrukov.scheduler.model.Data;
 import lt.ktu.dstrukov.scheduler.model.MinMaxRequirement;
 import lt.ktu.dstrukov.scheduler.model.Resource;
+import lt.ktu.dstrukov.scheduler.model.ResourceOwner;
 import lt.ktu.dstrukov.scheduler.model.Task;
 import lt.ktu.dstrukov.scheduler.model.collections.ResourceCollection;
 import lt.ktu.dstrukov.scheduler.model.collections.ResourceOwnerCollection;
@@ -102,7 +104,19 @@ public class SchoolData extends Data {
 
 	@Override
 	public Map<Task, Map<ResourceCollection, MinMaxRequirement>> getResourceRequirements() {
-		return null;
+		
+		Map<Task, Map<ResourceCollection, MinMaxRequirement>> ret = new HashMap<Task, Map<ResourceCollection,MinMaxRequirement>>();
+		
+		for(Task t : tasks){
+			Map<ResourceCollection, MinMaxRequirement> req = new HashMap<ResourceCollection, MinMaxRequirement>();
+			req.put(resourceCollectionList.get(JOBS), new MinMaxRequirement(1, 30));
+			req.put(resourceCollectionList.get(SERVERS), new MinMaxRequirement(1,1));
+			req.put(resourceCollectionList.get(ENVIRONMENTS), new MinMaxRequirement(1, 1));
+			ret.put(t, req);
+		}
+		
+		
+		return ret;
 	}
 
 	@Override
@@ -122,6 +136,14 @@ public class SchoolData extends Data {
 
 	public SchoolTask getTaskBySequence(int i) {
 		return (SchoolTask)tasks.get(i);
+	}
+
+
+	public Room getRoomByCode(String str) {
+		for(ResourceOwner r : rooms){
+			if(r.getDescription().equals(str)) return (Room)r;
+		}
+		return null;
 	}
 
 

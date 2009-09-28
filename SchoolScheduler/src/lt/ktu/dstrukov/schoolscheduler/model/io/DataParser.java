@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lt.ktu.dstrukov.scheduler.model.Task;
+import lt.ktu.dstrukov.schoolscheduler.model.Environment;
 import lt.ktu.dstrukov.schoolscheduler.model.Job;
+import lt.ktu.dstrukov.schoolscheduler.model.Room;
 import lt.ktu.dstrukov.schoolscheduler.model.SchoolData;
 import lt.ktu.dstrukov.schoolscheduler.model.SchoolTask;
 import lt.ktu.dstrukov.schoolscheduler.model.Server;
@@ -130,6 +132,7 @@ public class DataParser {
 			String hours = "";
 			String codes = "";
 			String groups = "";
+			String classrooms ="";
 			String periodeRestrictions = "";
 
 			for (int k = 0; k < cells.getLength(); k++) {
@@ -145,6 +148,10 @@ public class DataParser {
 				switch (k) {
 				case 3:
 
+					break;
+				case 4:
+					if (nnn != null)
+						classrooms = nnn.getNodeValue();
 					break;
 				case 5:
 					if (nnn != null)
@@ -166,16 +173,19 @@ public class DataParser {
 
 			}
 
-			if (!hours.isEmpty() || !codes.isEmpty() || !groups.isEmpty()) {
-				parseJobTypesAndHours(teacher, hours, codes);
+			if (!hours.isEmpty() || !codes.isEmpty() || !groups.isEmpty() || !classrooms.isEmpty()) {
+				parseJobTypesAndHours(teacher, hours, codes,classrooms);
 				parseIssuerGroups(teacher, groups, codes);
-
+				
 				data.addTeacher(teacher);
 			}
 
 		}
 
 	}
+	
+	
+	
 
 	/**
 	 * Parses {@link Task}s that given server can serve and assigns capacity to
@@ -191,9 +201,10 @@ public class DataParser {
 	 *            - String of JobType Codes to parse.
 	 */
 	protected void parseJobTypesAndHours(Teacher teacher, String hours,
-			String codes) {
+			String codes, String classrooms) {
 		String[] hourSplit = hours.trim().split(DELIMITER1);
 		String[] codeSplit = codes.trim().split(DELIMITER1);
+		String[] classSplit = classrooms.trim().split(DELIMITER1);
 
 		if (hourSplit.length != codeSplit.length)
 			throw new RuntimeException("Error parsing Teacher: "
@@ -216,6 +227,30 @@ public class DataParser {
 			if (jt == null)
 				throw new RuntimeException("Task does not exist: " + str);
 			t.add(jt);
+			// jt.addServer(s);
+		}
+		
+		
+
+		for (String str : classSplit) {
+			Room r = data.getRoomByCode(str);
+			if (r == null){
+				r= new Room(str);
+				data.addRoom(r);
+				r.addCompatibleResourceOwners(teacher);
+				for(Task task : t){
+					r.addCompatibleTask(task);
+				}
+				Environment env = new Environment(r);
+				data.addEnvironment(env);
+			} else {
+				r.addCompatibleResourceOwners(teacher);
+				for(Task task : t){
+					r.addCompatibleTask(task);
+				}				
+			}
+				
+			
 			// jt.addServer(s);
 		}
 
