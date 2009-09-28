@@ -11,6 +11,7 @@ public class RandomGenerator {
 	}
 	
 	public static int getRandomNumber(int from, int to){
+		if(from==to) return to;
 		return rnd.nextInt(to+1)+from;
 	}
 	

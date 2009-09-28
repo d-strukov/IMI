@@ -28,6 +28,7 @@ public abstract class Data implements Serializable {
 	public abstract Map<Task, Map<ResourceCollection, MinMaxRequirement>> getResourceRequirements();
 	
 	public Map<ResourceCollection, List<Resource>> getCompatibleResources(Task task) throws InsufficientResourceException{
+		
 		Map<ResourceCollection, List<Resource>> ret = new HashMap<ResourceCollection, List<Resource>>();
 		
 		for(ResourceCollection c : getResourceCollections()){
