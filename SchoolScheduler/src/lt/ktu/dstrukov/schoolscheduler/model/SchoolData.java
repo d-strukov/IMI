@@ -42,6 +42,9 @@ public class SchoolData extends Data {
 		ownerCollectionList.add(TEACHERS,teachers);
 		ownerCollectionList.add(ROOMS,rooms);
 		
+		
+		// The sequence is important
+		// priority is highest on top of the list
 		resourceCollectionList.add(JOBS,jobs);
 		resourceCollectionList.add(SERVERS,servers);
 		resourceCollectionList.add(ENVIRONMENTS,environments);
