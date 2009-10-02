@@ -19,6 +19,18 @@ public class Teacher extends ResourceOwner {
 	private List<Integer> desiredDaysOff = new ArrayList<Integer>();
 	private List<Server> servingResources = new ArrayList<Server>();
 
+	/**
+	 * Check if this Teacher can serve a task to a student group
+	 * 
+	 * @param task - Check against given task
+	 * @param group - Student Group
+	 * @return
+	 */
+	public boolean canServeStudnetGroup(SchoolTask task, StudentGroup group){
+		return limitations.get(task).contains(group);
+	}
+	
+	
 	public void addTaskLimitations(SchoolTask task, List<StudentGroup> groups) {
 
 		if (limitations.containsKey(task)) {
@@ -31,5 +43,6 @@ public class Teacher extends ResourceOwner {
 	public void addServingResource(Server s) {
 		servingResources.add(s);
 	}
-
+	
+	
 }
