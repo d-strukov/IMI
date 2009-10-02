@@ -72,8 +72,10 @@ public class Execution extends AbstractBase {
 				return null;
 			}
 			
-			
+			// at this place an initial group of students, a teacher and a task 
 
+			
+			
 			// in case these are last resources and are all compatible + less
 			// then max limit
 			if (compatible.size() <= minMax.getMax() && compatible.size() == taskCompatible.size() ) {
