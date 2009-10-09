@@ -23,10 +23,12 @@ public class Job extends Resource {
 	public boolean isCompatibleWithResource(Resource res) {
 		if(res.getOwner() instanceof Student){
 			Student s = (Student)res.getOwner();
-			return true; //TODO: change that
+			if(!student.isCompatibleWithStudent(task, s))return false;
+			return true; 
 		} else if (res.getOwner() instanceof Teacher) {
 			Teacher t = (Teacher)res.getOwner();
-			return t.canServeStudnetGroup(task, student.getGroup());// student.getGroup().getGroupDescription();
+			if(!student.isCompatibleWithTeacher(task, t))return false;
+			return true; 
 		} else if (res.getOwner() instanceof Room) {
 			return true;
 		}
