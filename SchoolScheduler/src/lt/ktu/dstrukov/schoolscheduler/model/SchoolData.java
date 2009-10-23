@@ -7,7 +7,6 @@ import java.util.Map;
 
 import lt.ktu.dstrukov.scheduler.model.Data;
 import lt.ktu.dstrukov.scheduler.model.MinMaxRequirement;
-import lt.ktu.dstrukov.scheduler.model.Resource;
 import lt.ktu.dstrukov.scheduler.model.ResourceOwner;
 import lt.ktu.dstrukov.scheduler.model.Task;
 import lt.ktu.dstrukov.scheduler.model.collections.ResourceCollection;
@@ -148,15 +147,8 @@ public class SchoolData extends Data {
 		}
 		return null;
 	}
-
-
-
-
-
 	
 	
-	
-	
-	
+
 
 }
