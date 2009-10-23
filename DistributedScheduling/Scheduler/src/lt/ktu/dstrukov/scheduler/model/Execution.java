@@ -20,6 +20,13 @@ public class Execution extends AbstractBase {
 	private static int count = -1;
 	private IDGenerator idGenerator;
 	private List<Resource> resources = new ArrayList<Resource>();
+	
+	protected List<Resource> getResources() {
+		return resources;
+	}
+
+	//Encapsulate default Constructor
+	private Execution(){};
 
 	public static Execution createExecution(Data data, Task task,
 			TimeFrame frame) {
@@ -35,9 +42,9 @@ public class Execution extends AbstractBase {
 		try {
 			taskCompatibleMap = data.getCompatibleResources(task);
 		} catch (InsufficientResourceException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 			return null;
 		}
 
