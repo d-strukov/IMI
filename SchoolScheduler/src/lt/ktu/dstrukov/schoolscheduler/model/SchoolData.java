@@ -25,13 +25,13 @@ public class SchoolData extends Data {
 	private ResourceOwnerCollection students = new ResourceOwnerCollection();
 	private ResourceOwnerCollection teachers = new ResourceOwnerCollection();
 	private ResourceOwnerCollection rooms = new ResourceOwnerCollection();
-	private static final int STUDENTS=0,TEACHERS=1,ROOMS=2;
+	public static final int STUDENTS=0,TEACHERS=1,ROOMS=2;
 	
 	private List<ResourceCollection> resourceCollectionList = new ArrayList<ResourceCollection>();
 	private ResourceCollection jobs = new ResourceCollection();
 	private ResourceCollection servers = new ResourceCollection();
 	private ResourceCollection environments = new ResourceCollection();
-	private static final int JOBS=0,SERVERS=1,ENVIRONMENTS=2;
+	public static final int JOBS=0,SERVERS=1,ENVIRONMENTS=2;
 	
 	private TaskCollection tasks = new TaskCollection();
 	

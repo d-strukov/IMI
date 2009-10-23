@@ -27,6 +27,8 @@ public class Teacher extends ResourceOwner {
 	 * @return
 	 */
 	public boolean canServeStudnetGroup(SchoolTask task, StudentGroup group){
+		if(!tasks.contains(task)) return false;
+		
 		return limitations.get(task).contains(group);
 	}
 	
