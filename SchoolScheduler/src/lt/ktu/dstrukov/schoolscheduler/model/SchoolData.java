@@ -34,6 +34,8 @@ public class SchoolData extends Data {
 	
 	private TaskCollection tasks = new TaskCollection();
 	
+	private Penalties penalties = new Penalties();
+	
 	private List<StudentGroup> groups = new ArrayList<StudentGroup>();
 	
 	public SchoolData() {
@@ -147,6 +149,13 @@ public class SchoolData extends Data {
 		}
 		return null;
 	}
+
+
+	public Penalties getPenalties() {
+		return penalties;
+	}
+	
+	
 	
 	
 

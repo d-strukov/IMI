@@ -26,7 +26,7 @@ public class Main {
 		
 		SchoolSchedule schedule = new SchoolSchedule(data);
 		
-		System.out.println("Finished " + schedule);
+		System.out.println("Finished " + schedule.evaluateQuality());
 		
 	}
 

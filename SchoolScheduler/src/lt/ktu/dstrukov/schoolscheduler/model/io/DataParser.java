@@ -311,7 +311,7 @@ public class DataParser {
 					valid = true;
 					NodeList d = eilute.getElementsByTagName("Data");
 					Node duom = d.item(k);
-					if (duom == null) {
+					if (duom == null || duom.getFirstChild().getNodeValue().equals("")) {
 						valid = false;
 						break;
 					}
@@ -327,6 +327,7 @@ public class DataParser {
 				if (valid && data.getTaskByCode(type.getCode()) != null)
 					type = data.getTaskByCode(type.getCode());
 
+				if(valid)
 				data.addTask(type);
 			}
 		}
