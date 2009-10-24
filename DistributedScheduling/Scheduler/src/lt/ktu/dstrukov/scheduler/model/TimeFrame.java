@@ -52,7 +52,11 @@ public class TimeFrame extends AbstractBase {
 
 
 	public boolean isResourceAvailable(Resource res) {
-		return !resourcesOwners.contains(res.getOwner());
+		return !containsResourceOwner(res.getOwner());
+	}
+	
+	public boolean containsResourceOwner(ResourceOwner own){
+		return resourcesOwners.contains(own);
 	}
 
 	
@@ -71,17 +75,19 @@ public class TimeFrame extends AbstractBase {
 	}
 
 	public boolean registerResource(Resource resource, Task task) {
-	//
+		resourcesOwners.add(resource.getOwner());
 		return true;
 	}
 
 	public boolean unRegisterResourc(Resource resource, Task task) {
-	//
+	
 		return true;
 	}
 
-	public void registerExecution() {
-	
+	public void registerExecution(Execution e) {
+		for(Resource r : e.getResources()){
+			this.registerResource(r, e.getTask());
+		}
 	}
 
 

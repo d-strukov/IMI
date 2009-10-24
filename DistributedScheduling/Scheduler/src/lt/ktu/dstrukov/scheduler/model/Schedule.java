@@ -3,6 +3,7 @@ package lt.ktu.dstrukov.scheduler.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import lt.ktu.dstrukov.scheduler.exception.InsufficientResourceException;
 import lt.ktu.dstrukov.scheduler.model.collections.ResourceCollection;
 import lt.ktu.dstrukov.scheduler.model.collections.TaskCollection;
 import lt.ktu.dstrukov.scheduler.model.misc.IDGenerator;
@@ -35,17 +36,40 @@ public abstract class Schedule extends AbstractBase {
 
 		// Start Creating executions
 		TaskCollection tasks = data.getTaskCollection();
+		List<Task> skipTasks = new ArrayList<Task>();
 		while (!getResourceCollectionToExaust().isEmpty()) {
 			for (Task task : tasks) {
+				
+				if(skipTasks.contains(task)) continue;
 				if(getResourceCollectionToExaust().isEmpty()) break;
+				boolean skipTask = false;
+				
 				for (Periode p : periods) {
 					if(getResourceCollectionToExaust().isEmpty()) break;
+					boolean skipPeriode = false;
 					for (TimeFrame frame : p.getFrames()) {
 						if(getResourceCollectionToExaust().isEmpty()) break;
 						
 						Execution e = null;
 						try{
 							e=Execution.createExecution(data, task,frame);
+						}catch(InsufficientResourceException ex) {
+							
+							Action test = handleInsufitientResourceException(ex);
+							switch (test) {
+							case Fatal:
+								throw new  RuntimeException(ex.getMessage());
+							case SkipPeriode:
+								skipPeriode =true;
+								break;
+							case SkipTask:
+								skipTasks.add(ex.getTask());
+								skipTask =true;
+								break;
+							default:
+								break;
+							}
+							
 						} catch(Exception ex){
 							System.out.println(ex.getMessage());
 						}
@@ -53,17 +77,19 @@ public abstract class Schedule extends AbstractBase {
 						
 						if(e!=null){
 							executions.add(e);
+							frame.registerExecution(e);
 							getResourceCollectionToExaust().removeAll(e.getResources());
 						}
-
+						if(skipPeriode || skipTask) break;
 					}
+					if(skipTask)break;
 				}
 
 			}
 
 		}
 		
-		System.out.println("Finished");
+		//System.out.println("Finished");
 
 	}
 
@@ -100,10 +126,18 @@ public abstract class Schedule extends AbstractBase {
 	 */
 	protected abstract ResourceCollection getResourceCollectionToExaust();
 	
+	protected abstract Action handleInsufitientResourceException(InsufficientResourceException ex);
+	
 	/**
 	 * Provide a function to evaluate quality of a schedule. (Application will try to minimize given function)
 	 * @return number of penalty points
 	 */
-	protected abstract int evaluateQuality();
+	public abstract int evaluateQuality();
+
+	
+	
+	public List<Periode> getPeriods() {
+		return periods;
+	}
 
 }

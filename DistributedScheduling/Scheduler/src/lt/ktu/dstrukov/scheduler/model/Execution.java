@@ -20,17 +20,19 @@ public class Execution extends AbstractBase {
 	private static int count = -1;
 	private IDGenerator idGenerator;
 	private List<Resource> resources = new ArrayList<Resource>();
-	
+	private Task task;
+
 	protected List<Resource> getResources() {
 		return resources;
 	}
 
-	//Encapsulate default Constructor
-	private Execution(){};
+	// Encapsulate Constructor
+	private Execution(Task t) {
+		task = t;
+	};
 
 	public static Execution createExecution(Data data, Task task,
-			TimeFrame frame) {
-		Execution execution = new Execution();
+			TimeFrame frame) throws InsufficientResourceException {
 
 		// initialize requirements map
 		Map<ResourceCollection, MinMaxRequirement> req = data
@@ -42,7 +44,8 @@ public class Execution extends AbstractBase {
 		try {
 			taskCompatibleMap = data.getCompatibleResources(task);
 		} catch (InsufficientResourceException e) {
-			System.out.println(e.getMessage());
+			//System.out.println(e.getMessage());
+			throw e;
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return null;
@@ -51,8 +54,8 @@ public class Execution extends AbstractBase {
 		// in case of failure, throw runtime exception
 		if (taskCompatibleMap == null)
 			throw new RuntimeException("taskCompatibleMap == null");
-		
 
+		Execution execution = new Execution(task);
 		// start collecting resources
 		for (ResourceCollection rc : allResources) {
 
@@ -78,24 +81,23 @@ public class Execution extends AbstractBase {
 			if (compatible.size() < minMax.getMin()) {
 				return null;
 			}
-			
-			// at this place an initial group of students, a teacher and a task 
 
-			
-			
+			// at this place an initial group of students, a teacher and a task
+
+			// seems to be a time to initialize execution
+
 			// in case these are last resources and are all compatible + less
 			// then max limit
-			if (compatible.size() <= minMax.getMax() && compatible.size() == taskCompatible.size() ) {
+			if (compatible.size() <= minMax.getMax()
+					&& compatible.size() == taskCompatible.size()) {
 				// put all of the resources in an Execution
 				execution.resources.addAll(compatible);
 				continue;
 			}
-			
-			
 
 			// Choose amount of resources between min and max
-			int amountNeeded = RandomGenerator.getRandomNumber(minMax.getMin(),
-					minMax.getMax());
+			int amountNeeded = minMax.getMax(); // RandomGenerator.getRandomNumber(minMax.getMin(),
+												// minMax.getMax());
 
 			// see if random amount is available
 			if (compatible.size() >= amountNeeded) {
@@ -110,6 +112,8 @@ public class Execution extends AbstractBase {
 
 				// add them to execution
 				execution.resources.addAll(chosen);
+			} else if (compatible.size() >= minMax.getMin()) {
+				execution.resources.addAll(compatible);
 			} else {
 				return null;
 			}
@@ -130,5 +134,9 @@ public class Execution extends AbstractBase {
 			};
 		}
 		return idGenerator;
+	}
+
+	public Task getTask() {
+		return task;
 	}
 }

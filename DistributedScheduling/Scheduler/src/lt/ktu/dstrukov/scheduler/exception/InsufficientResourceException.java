@@ -10,13 +10,33 @@ public class InsufficientResourceException extends Exception {
 	 * 
 	 */
 	private static final long serialVersionUID = 5107634011643791975L;
-	private static String compileMessage(ResourceCollection collection, Task task){
-		
-		return ""+collection + " has no compatible elements with task  " + task;
-	}
+	private ResourceCollection collection;
+	private Task task;
+	private String message = "Insufitient resources";
+	
 	
 	public InsufficientResourceException(ResourceCollection collection, Task task) {
-		super(compileMessage(collection, task));
+		this.task =task;
+		this.collection = collection;
+		
+	}
+	
+	@Override
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String msg){
+		message=msg;
+	}
+
+	public ResourceCollection getCollection() {
+		return collection;
+	}
+
+
+	public Task getTask() {
+		return task;
 	}
 
 }
