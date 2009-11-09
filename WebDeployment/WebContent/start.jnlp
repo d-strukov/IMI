@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<jnlp spec="1.0+" codebase="http://10.0.1.100:8080/WebDeployment"
+                  href="start.jnlp">
+   <information>
+      <title>Node</title>
+      <vendor>dstrukov</vendor>
+      <description>Worker node</description>
+   </information>
+     <security>
+      <all-permissions/>
+  </security> 
+   <resources>
+      <j2se version="1.6+" />
+      <jar href="node.jar" main="true" />
+   </resources>
+   <application-desc main-class="lt.ktu.dstrukov.node.Main" />
+  
+</jnlp>
