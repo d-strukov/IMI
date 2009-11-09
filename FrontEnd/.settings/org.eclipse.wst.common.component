@@ -3,6 +3,27 @@
     <wb-module deploy-name="FrontEnd">
         <wb-resource deploy-path="/" source-path="/WebContent"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <dependent-module archiveName="Scheduler.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/Scheduler/Scheduler">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ScheduleOptimizator.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ScheduleOptimizator/ScheduleOptimizator">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="SchoolScheduler.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/SchoolScheduler/SchoolScheduler">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="CentralImpl.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/CentralImpl/CentralImpl">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Central.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/Central/Central">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Commons.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/Commons/Commons">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Node.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/Node/Node">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="FrontEnd"/>
         <property name="java-output-path"/>
     </wb-module>

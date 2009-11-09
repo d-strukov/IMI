@@ -3,6 +3,13 @@
 	<name>FrontEnd</name>
 	<comment></comment>
 	<projects>
+		<project>Scheduler</project>
+		<project>ScheduleOptimizator</project>
+		<project>SchoolScheduler</project>
+		<project>CentralImpl</project>
+		<project>Central</project>
+		<project>Commons</project>
+		<project>Node</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

@@ -1,0 +1,73 @@
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	margin: 0px;
+	padding: 0px;
+	background-color:#FFFFFF;
+	font-size: 12px;
+}
+
+td {
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+th {
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+#wrapper #appView {
+	border: medium double #333333;
+	height: 800px;
+	margin: 20px;
+	padding: 20px;
+}
+.infoTable td.clearCell {
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+	border-top-width: 0px;
+	border-right-width: 0px;
+	border-bottom-width: 0px;
+	border-left-width: 0px;
+}
+
+#header {
+	margin: 0px;
+	padding: 0px;
+	height: 150px;
+	width: 100%;
+	background-color: #FFFFFF;
+	text-align: left;
+}
+#wrapper {
+	background-color: #FEF08D;
+	height: 100%;
+	width: 850px;
+}
+#wrapper #appView #infoPanel {
+	float: right;
+	width: 200px;
+}
+.infoTable {
+
+}
+
+.infoTable td {
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-bottom-color: #000000;
+	border-left-color: #000000;
+	border-top-color: #000000;
+	border-right-color: #000000;
+}
+
+#wrapper #appView #chartPanel {
+	float: left;
+	width: 560px;
+}
+#wrapper #appView #controlPanel {
+	margin-bottom: 30px;
+	text-align: left;
+}
