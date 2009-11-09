@@ -108,7 +108,7 @@ public class Execution extends AbstractBase {
 				Collections.shuffle(compatible);
 
 				// choose the amount of resources
-				List<Resource> chosen = compatible.subList(0, amountNeeded - 1);
+				List<Resource> chosen = compatible.subList(0, amountNeeded );
 
 				// add them to execution
 				execution.resources.addAll(chosen);

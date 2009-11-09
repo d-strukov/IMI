@@ -1,5 +1,6 @@
 package lt.ktu.dstrukov.scheduler.model;
 
+
 import lt.ktu.dstrukov.scheduler.model.collections.BaseCollection;
 import lt.ktu.dstrukov.scheduler.model.collections.CollectionItem;
 import lt.ktu.dstrukov.scheduler.model.misc.IDGenerator;

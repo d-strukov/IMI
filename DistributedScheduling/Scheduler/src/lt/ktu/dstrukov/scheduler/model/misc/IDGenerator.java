@@ -1,6 +1,8 @@
 package lt.ktu.dstrukov.scheduler.model.misc;
 
-public interface IDGenerator {
+import java.io.Serializable;
+
+public interface IDGenerator  extends Serializable{
 	
 	/**
 	 * 
