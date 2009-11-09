@@ -56,8 +56,8 @@ public class SchoolSchedule extends Schedule {
 		ResourceOwnerCollection teachers = getData().getResourceOwnerCollections().get(SchoolData.TEACHERS);
 		ResourceOwnerCollection students = getData().getResourceOwnerCollections().get(SchoolData.STUDENTS);
 		
-		count += calculateWindows(teachers) ;// * getData().getPenalties().getTeacherWindows();
-		count += calculateWindows(students) ;//* getData().getPenalties().getStudentWindows();
+		count += calculateWindows(teachers)  * getData().getPenalties().getTeacherWindows();
+		count += calculateWindows(students) * getData().getPenalties().getStudentWindows();
 		
 		return count;
 	}

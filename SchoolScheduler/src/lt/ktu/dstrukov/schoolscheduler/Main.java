@@ -20,6 +20,7 @@ public class Main {
 		SchoolData data = new SchoolData();
 		new DataParser(data, new File("SchoolData1.xml"));
 		
+		
 		for( ResourceCollection c : data.getResourceCollections()){
 			System.out.println(c.toString());
 		}

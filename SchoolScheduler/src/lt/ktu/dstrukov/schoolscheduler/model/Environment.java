@@ -10,14 +10,14 @@ public class Environment extends Resource {
 	 */
 	private static final long serialVersionUID = 6918929602403579253L;
 
-	private Room room;
+	
 
 	public Room getRoom() {
-		return room;
+		return (Room)getOwner();
 	}
 
 	public Environment(Room r) {
-		room = r;
+		setOwner(r);
 	}
 
 	@Override

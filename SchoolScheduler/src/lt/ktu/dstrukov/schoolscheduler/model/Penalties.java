@@ -1,6 +1,14 @@
 package lt.ktu.dstrukov.schoolscheduler.model;
 
-public class Penalties {
+import java.io.Serializable;
+
+public class Penalties implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4275376610440953653L;
+	
 	
 	//Penalties
 	private int teacherWindows;
@@ -16,7 +24,17 @@ public class Penalties {
 	private int teacherMaxLessonsPerPeriode;
 	private int studentMaxLessonsPerPeriode;
 	
-	public Penalties(){}
+	public Penalties(){
+		teacherWindows = 1;
+		studentWindows = 100;
+		
+		teacherAtDayOff = 1;
+		teacherLessonOvertime =1;
+		studentLessonOvertime =1;
+		
+		jobNotScheduled=1;
+		
+	}
 	
 	
 	public int getTeacherWindows() {
