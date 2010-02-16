@@ -8,7 +8,6 @@ import java.util.Map;
 import lt.ktu.dstrukov.scheduler.exception.InsufficientResourceException;
 import lt.ktu.dstrukov.scheduler.model.collections.ResourceCollection;
 import lt.ktu.dstrukov.scheduler.model.misc.IDGenerator;
-import lt.ktu.dstrukov.scheduler.model.misc.RandomGenerator;
 
 public class Execution extends AbstractBase {
 
@@ -44,7 +43,7 @@ public class Execution extends AbstractBase {
 		try {
 			taskCompatibleMap = data.getCompatibleResources(task);
 		} catch (InsufficientResourceException e) {
-			//System.out.println(e.getMessage());
+			// System.out.println(e.getMessage());
 			throw e;
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -97,7 +96,7 @@ public class Execution extends AbstractBase {
 
 			// Choose amount of resources between min and max
 			int amountNeeded = minMax.getMax(); // RandomGenerator.getRandomNumber(minMax.getMin(),
-												// minMax.getMax());
+			// minMax.getMax());
 
 			// see if random amount is available
 			if (compatible.size() >= amountNeeded) {
@@ -108,7 +107,7 @@ public class Execution extends AbstractBase {
 				Collections.shuffle(compatible);
 
 				// choose the amount of resources
-				List<Resource> chosen = compatible.subList(0, amountNeeded );
+				List<Resource> chosen = compatible.subList(0, amountNeeded);
 
 				// add them to execution
 				execution.resources.addAll(chosen);
