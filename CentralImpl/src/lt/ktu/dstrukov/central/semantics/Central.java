@@ -223,14 +223,15 @@ public class Central extends UnicastRemoteObject implements ICentral {
 	}
 
 	@Override
-	public void setStarted() throws RemoteException {
+	public synchronized void setStarted() throws RemoteException {
 		startedCount++;
 		started = true;
 
 	}
 
 	@Override
-	public void registerNode(String nodeAddress) throws RemoteException {
+	public synchronized void registerNode(String nodeAddress)
+			throws RemoteException {
 		try {
 			System.out.println("Looking up " + nodeAddress);
 			INode node = (INode) Naming.lookup(nodeAddress);
