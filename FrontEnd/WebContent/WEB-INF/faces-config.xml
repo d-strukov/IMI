@@ -33,5 +33,4 @@
 		<phase-listener>lt.ktu.dstrukov.frontend.ajax.AjaxPhaseListener</phase-listener>
 	</lifecycle>
 	
-
 </faces-config>
