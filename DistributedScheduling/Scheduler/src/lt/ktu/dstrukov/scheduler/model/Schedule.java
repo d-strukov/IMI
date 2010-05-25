@@ -8,6 +8,9 @@ import lt.ktu.dstrukov.scheduler.model.collections.ResourceCollection;
 import lt.ktu.dstrukov.scheduler.model.collections.TaskCollection;
 import lt.ktu.dstrukov.scheduler.model.misc.IDGenerator;
 
+/**
+ * @author  Denis
+ */
 public abstract class Schedule extends AbstractBase {
 
 	/**
@@ -16,12 +19,27 @@ public abstract class Schedule extends AbstractBase {
 	private static final long serialVersionUID = -8945579833081585810L;
 
 	private static int count = -1;
+	/**
+	 * @uml.property  name="idGenerator"
+	 * @uml.associationEnd  
+	 */
 	private IDGenerator idGenerator;
+	/**
+	 * @uml.property  name="periods"
+	 */
 	private List<Periode> periods = new ArrayList<Periode>();
 	private List<Execution> executions = new ArrayList<Execution>();
+	/**
+	 * @uml.property  name="data"
+	 * @uml.associationEnd  
+	 */
 	private Data data;
 	
 
+	/**
+	 * @return
+	 * @uml.property  name="data"
+	 */
 	protected Data getData() {
 		return data;
 	}
@@ -136,6 +154,10 @@ public abstract class Schedule extends AbstractBase {
 
 	
 	
+	/**
+	 * @return
+	 * @uml.property  name="periods"
+	 */
 	public List<Periode> getPeriods() {
 		return periods;
 	}

@@ -5,6 +5,9 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd"
     version="1.2">
+    
+    
+    
 	<managed-bean>
 		<managed-bean-name>penaltyBean</managed-bean-name>
 		<managed-bean-class>lt.ktu.dstrukov.frontend.beans.PenaltyBean</managed-bean-class>
@@ -15,20 +18,62 @@
 		<managed-bean-class>lt.ktu.dstrukov.frontend.beans.CentralBean</managed-bean-class>
 		<managed-bean-scope>application</managed-bean-scope>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>wizardBean</managed-bean-name>
+		<managed-bean-class>lt.ktu.dstrukov.frontend.beans.WizardBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>dataBean</managed-bean-name>
+		<managed-bean-class>lt.ktu.dstrukov.frontend.beans.DataBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
 	<navigation-rule>
-		<display-name>index</display-name>
-		<from-view-id>/index.jsp</from-view-id>
+		<display-name>Welcome</display-name>
+		<from-view-id>/Welcome.jsp</from-view-id>
 		<navigation-case>
+			<from-outcome>upload</from-outcome>
 			<to-view-id>/FileUpload.jsp</to-view-id>
+			<redirect />
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<display-name>index</display-name>
-		<from-view-id>/index.jsp</from-view-id>
+		<display-name>FileUpload</display-name>
+		<from-view-id>/FileUpload.jsp</from-view-id>
 		<navigation-case>
-			<to-view-id>/progres.jsp</to-view-id>
+			<from-outcome>params</from-outcome>
+			<to-view-id>/Params.jsp</to-view-id>
+			<redirect />
 		</navigation-case>
 	</navigation-rule>
+	<navigation-rule>
+		<display-name>Params</display-name>
+		<from-view-id>/Params.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>progress</from-outcome>
+			<to-view-id>/progres.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>progres</display-name>
+		<from-view-id>/progres.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>results</from-outcome>
+			<to-view-id>/Results.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>Results</display-name>
+		<from-view-id>/Results.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>welcome</from-outcome>
+			<to-view-id>/Welcome.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
 	<lifecycle>
 		<phase-listener>lt.ktu.dstrukov.frontend.ajax.AjaxPhaseListener</phase-listener>
 	</lifecycle>

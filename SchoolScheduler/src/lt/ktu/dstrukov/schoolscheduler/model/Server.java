@@ -3,6 +3,9 @@ package lt.ktu.dstrukov.schoolscheduler.model;
 import lt.ktu.dstrukov.scheduler.model.Resource;
 import lt.ktu.dstrukov.scheduler.model.Task;
 
+/**
+ * @author  Denis
+ */
 public class Server extends Resource {
 
 	/**
@@ -10,7 +13,15 @@ public class Server extends Resource {
 	 */
 	private static final long serialVersionUID = -1528902955576255064L;
 	
+	/**
+	 * @uml.property  name="teacher"
+	 * @uml.associationEnd  
+	 */
 	private Teacher teacher;
+	/**
+	 * @uml.property  name="task"
+	 * @uml.associationEnd  
+	 */
 	private SchoolTask task;
 	
 	
@@ -21,6 +32,10 @@ public class Server extends Resource {
 		owner.addServingResource(this);
 	}
 	
+	/**
+	 * @return
+	 * @uml.property  name="task"
+	 */
 	public SchoolTask getTask(){
 		return task;
 	}

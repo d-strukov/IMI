@@ -4,6 +4,9 @@ import lt.ktu.dstrukov.scheduler.model.collections.BaseCollection;
 import lt.ktu.dstrukov.scheduler.model.collections.CollectionItem;
 import lt.ktu.dstrukov.scheduler.model.misc.IDGenerator;
 
+/**
+ * @author  Denis
+ */
 public class Task extends AbstractBase implements CollectionItem {
 
 	/**
@@ -13,6 +16,10 @@ public class Task extends AbstractBase implements CollectionItem {
 	
 	private static int counter=-1;
 	
+	/**
+	 * @uml.property  name="idGenerator"
+	 * @uml.associationEnd  
+	 */
 	private IDGenerator idGenerator ;
 	
 	

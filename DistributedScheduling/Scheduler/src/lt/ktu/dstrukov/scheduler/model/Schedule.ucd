@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="Schedule" size="811,344" id="lt.ktu.dstrukov.scheduler.model" metadata="uml2-1.0" initialized="true" tag="1000" key="32303037303533312D31303030205363686564756C65722F44656E6973">
+  <children xsi:type="editmodel:ClassEditModel" name="Schedule" location="50,221" size="149,103" id="lt.ktu.dstrukov.scheduler.model/Schedule" runTimeClassModel="Schedule(Llt.ktu.dstrukov.scheduler.model.Data;),evaluateQuality(),periods">
+    <children xsi:type="editmodel:CompartmentEditModel" size="126,18">
+      <children xsi:type="editmodel:AttributeEditModel" name="periods" id="lt.ktu.dstrukov.scheduler.model/Schedule#periods"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="104,36">
+      <children xsi:type="editmodel:MethodEditModel" name="Schedule" id="lt.ktu.dstrukov.scheduler.model/Schedule#Schedule(Llt.ktu.dstrukov.scheduler.model.Data;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="evaluateQuality" id="lt.ktu.dstrukov.scheduler.model/Schedule#evaluateQuality()"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="lt.ktu.dstrukov.scheduler.model/AbstractBase&lt;-lt.ktu.dstrukov.scheduler.model/Schedule" source="//@children.0" target="//@children.1" targetEnd="//@children.0/@sourceConnections.0/@children.1" sourceEnd="//@children.0/@sourceConnections.0/@children.0" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="74,0" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="62,121"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.0/@sourceConnections.0" name="AbstractBase" location="62,50" size="124,121" id="lt.ktu.dstrukov.scheduler.model/AbstractBase" runTimeClassModel="id,hashCode(),equals(Ljava.lang.Object;),AbstractBase()">
+    <children xsi:type="editmodel:CompartmentEditModel" size="44,18">
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="lt.ktu.dstrukov.scheduler.model/AbstractBase#id"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="96,54">
+      <children xsi:type="editmodel:MethodEditModel" name="AbstractBase" id="lt.ktu.dstrukov.scheduler.model/AbstractBase#AbstractBase()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="equals" id="lt.ktu.dstrukov.scheduler.model/AbstractBase#equals(Ljava.lang.Object;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="hashCode" id="lt.ktu.dstrukov.scheduler.model/AbstractBase#hashCode()"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <diagramOptions xsi:type="options:ClassDiagramOptions" interactive="false" properties="open=lt.ktu.dstrukov.scheduler.model/Schedule;wireOptions=1;Product=eUML2"/>
+  <boardSetting snapToGeometry="true" gridEnabled="true" gridSpacing="15,15" gridOrigin="0,0" rulerUnit="pixel" gridVisibility="false">
+    <leftRuler/>
+    <topRuler/>
+  </boardSetting>
+  <classDiagramPreferences xsi:type="editmodel:UMLClassDiagramPreference" showPopupBars="true" showConnectionHandles="true" attributeSorter="Natural" methodSorter="Natural" showClassStereotype="true" showPackageStereotype="true" showDependencyStereotype="true" showInterfaceStereotype="true" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+</editmodel:ClassDiagramEditModel>

@@ -14,6 +14,8 @@ public class Optimizator {
 	private List<Integer> res = new ArrayList<Integer>();
 	private SchoolData data;
 	private OptimizationParameters params;
+	private SchoolSchedule best;
+	private int bestPoints;
 
 	public Optimizator(Object d, OptimizationParameters p) {
 
@@ -30,7 +32,14 @@ public class Optimizator {
 			SchoolData d = (SchoolData) DeepCopyUtil.copy(data);
 			callback.onIterationStart();
 			SchoolSchedule schedule = new SchoolSchedule(d);
+
 			int points = schedule.evaluateQuality();
+
+			if (best == null || points < bestPoints) {
+				best = schedule;
+				bestPoints = points;
+			}
+
 			Result result = new Result("" + points);
 			res.add(points);
 			callback.onIterationComplete(result);
@@ -41,6 +50,10 @@ public class Optimizator {
 
 	public List<Integer> getResults() {
 		return res;
+	}
+
+	public SchoolSchedule getBest() {
+		return best;
 	}
 
 }

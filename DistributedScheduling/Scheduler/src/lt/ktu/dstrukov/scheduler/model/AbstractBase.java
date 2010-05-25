@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 import lt.ktu.dstrukov.scheduler.model.misc.IDGenerator;
 
+/**
+ * @author  Denis
+ */
 public abstract class AbstractBase implements Serializable {
 
 	/**
@@ -11,10 +14,17 @@ public abstract class AbstractBase implements Serializable {
 	 */
 	private static final long serialVersionUID = -5219726585304972261L;
 	
+	/**
+	 * @uml.property  name="id"
+	 */
 	private int id;
 
 	
 
+	/**
+	 * @return
+	 * @uml.property  name="id"
+	 */
 	public  int getId(){
 		return id;
 	}

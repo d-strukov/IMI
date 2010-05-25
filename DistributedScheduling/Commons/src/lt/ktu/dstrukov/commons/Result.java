@@ -2,10 +2,10 @@ package lt.ktu.dstrukov.commons;
 
 import java.io.Serializable;
 
-public class Result implements Serializable{
+public class Result implements Serializable {
 
-	private String resultString ="";
-	
+	private String resultString = "";
+
 	/**
 	 * 
 	 */
@@ -18,10 +18,9 @@ public class Result implements Serializable{
 	public Result(String res) {
 		resultString = res;
 	}
-	
-	public String getResultString(){
+
+	public String getResultString() {
 		return resultString;
 	}
 
-	
 }

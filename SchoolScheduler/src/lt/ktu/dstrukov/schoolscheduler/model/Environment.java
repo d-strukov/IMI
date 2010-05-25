@@ -10,10 +10,8 @@ public class Environment extends Resource {
 	 */
 	private static final long serialVersionUID = 6918929602403579253L;
 
-	
-
 	public Room getRoom() {
-		return (Room)getOwner();
+		return (Room) getOwner();
 	}
 
 	public Environment(Room r) {
@@ -25,7 +23,7 @@ public class Environment extends Resource {
 		if (!(res instanceof Job))
 			return true;
 
-		return getRoom().getCompatibleResources().contains(res);
+		return getRoom().getCompatibleResourceOwners().contains(res.getOwner());
 	}
 
 	@Override

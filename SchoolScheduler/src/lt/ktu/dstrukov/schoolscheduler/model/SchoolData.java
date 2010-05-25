@@ -13,6 +13,9 @@ import lt.ktu.dstrukov.scheduler.model.collections.ResourceCollection;
 import lt.ktu.dstrukov.scheduler.model.collections.ResourceOwnerCollection;
 import lt.ktu.dstrukov.scheduler.model.collections.TaskCollection;
 
+/**
+ * @author  Denis
+ */
 public class SchoolData extends Data {
 
 	/**
@@ -21,19 +24,59 @@ public class SchoolData extends Data {
 	private static final long serialVersionUID = 3406228162185748012L;
 
 	private List<ResourceOwnerCollection> ownerCollectionList = new ArrayList<ResourceOwnerCollection>();
+	/**
+	 * @uml.property  name="students"
+	 * @uml.associationEnd  
+	 */
 	private ResourceOwnerCollection students = new ResourceOwnerCollection();
+	/**
+	 * @uml.property  name="teachers"
+	 * @uml.associationEnd  
+	 */
 	private ResourceOwnerCollection teachers = new ResourceOwnerCollection();
+	/**
+	 * @uml.property  name="rooms"
+	 * @uml.associationEnd  
+	 */
 	private ResourceOwnerCollection rooms = new ResourceOwnerCollection();
-	public static final int STUDENTS=0,TEACHERS=1,ROOMS=2;
+	public static final int STUDENTS=0;
+
+	public static final int TEACHERS=1;
+
+	public static final int ROOMS=2;
 	
 	private List<ResourceCollection> resourceCollectionList = new ArrayList<ResourceCollection>();
+	/**
+	 * @uml.property  name="jobs"
+	 * @uml.associationEnd  
+	 */
 	private ResourceCollection jobs = new ResourceCollection();
+	/**
+	 * @uml.property  name="servers"
+	 * @uml.associationEnd  
+	 */
 	private ResourceCollection servers = new ResourceCollection();
+	/**
+	 * @uml.property  name="environments"
+	 * @uml.associationEnd  
+	 */
 	private ResourceCollection environments = new ResourceCollection();
-	public static final int JOBS=0,SERVERS=1,ENVIRONMENTS=2;
+	public static final int JOBS=0;
+
+	public static final int SERVERS=1;
+
+	public static final int ENVIRONMENTS=2;
 	
+	/**
+	 * @uml.property  name="tasks"
+	 * @uml.associationEnd  
+	 */
 	private TaskCollection tasks = new TaskCollection();
 	
+	/**
+	 * @uml.property  name="penalties"
+	 * @uml.associationEnd  
+	 */
 	private Penalties penalties = new Penalties();
 	
 	private List<StudentGroup> groups = new ArrayList<StudentGroup>();
@@ -151,6 +194,10 @@ public class SchoolData extends Data {
 	}
 
 
+	/**
+	 * @return
+	 * @uml.property  name="penalties"
+	 */
 	public Penalties getPenalties() {
 		return penalties;
 	}

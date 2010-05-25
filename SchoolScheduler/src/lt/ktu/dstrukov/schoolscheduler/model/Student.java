@@ -6,7 +6,11 @@ import java.util.List;
 import java.util.Map;
 
 import lt.ktu.dstrukov.scheduler.model.ResourceOwner;
+import java.util.Collection;
 
+/**
+ * @author  Denis
+ */
 public class Student extends ResourceOwner {
 
 	/**
@@ -14,6 +18,10 @@ public class Student extends ResourceOwner {
 	 */
 	private static final long serialVersionUID = -5531926260294809834L;
 
+	/**
+	 * @uml.property  name="group"
+	 * @uml.associationEnd  
+	 */
 	private StudentGroup group;
 	private List<Job> jobs = new ArrayList<Job>();
 	private Map<SchoolTask, List<Student>> taskGroup = new HashMap<SchoolTask, List<Student>>();
@@ -27,6 +35,10 @@ public class Student extends ResourceOwner {
 		this.group = group;
 	}
 
+	/**
+	 * @return
+	 * @uml.property  name="group"
+	 */
 	public StudentGroup getGroup() {
 		return group;
 	}
@@ -58,6 +70,30 @@ public class Student extends ResourceOwner {
 		
 		//no violations detected
 		return true;
+	}
+
+	/**
+	 * @uml.property  name="jobs"
+	 * @uml.associationEnd  multiplicity="(0 -1)" inverse="student:lt.ktu.dstrukov.schoolscheduler.model.Job"
+	 */
+	private Collection<Job> jobs1;
+
+	/**
+	 * Getter of the property <tt>jobs</tt>
+	 * @return  Returns the jobs1.
+	 * @uml.property  name="jobs"
+	 */
+	public Collection<Job> getJobs() {
+		return jobs1;
+	}
+
+	/**
+	 * Setter of the property <tt>jobs</tt>
+	 * @param jobs  The jobs1 to set.
+	 * @uml.property  name="jobs"
+	 */
+	public void setJobs(Collection<Job> jobs) {
+		jobs1 = jobs;
 	}
 
 }

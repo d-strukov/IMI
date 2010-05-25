@@ -4,6 +4,9 @@ package lt.ktu.dstrukov.scheduler.model.collections;
 import lt.ktu.dstrukov.scheduler.model.ResourceOwner;
 import lt.ktu.dstrukov.scheduler.model.misc.IDGenerator;
 
+/**
+ * @author  Denis
+ */
 public class ResourceOwnerCollection extends BaseCollection<ResourceOwner> {
 
 	/**
@@ -13,6 +16,10 @@ public class ResourceOwnerCollection extends BaseCollection<ResourceOwner> {
 	
 	private static int counter=-1;
 	
+	/**
+	 * @uml.property  name="idGenerator"
+	 * @uml.associationEnd  
+	 */
 	private IDGenerator idGenerator;
 
 	@Override

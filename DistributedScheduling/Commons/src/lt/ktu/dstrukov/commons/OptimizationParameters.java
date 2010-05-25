@@ -34,7 +34,7 @@ public class OptimizationParameters implements Serializable {
 
 		jobNotScheduled = 1;
 
-		iterationCount = 100;
+		iterationCount = 50;
 
 	}
 

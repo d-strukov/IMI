@@ -45,10 +45,11 @@ th {
 	width: 850px;
 }
 #wrapper #appView #infoPanel {
-	float: right;
+	float: left;
 	width: 200px;
 }
 .infoTable {
+	float: left;
 
 }
 
@@ -70,4 +71,8 @@ th {
 #wrapper #appView #controlPanel {
 	margin-bottom: 30px;
 	text-align: left;
+}
+#wrapper #appView #textPanel div {
+	float: left;
+	width: 400px;
 }

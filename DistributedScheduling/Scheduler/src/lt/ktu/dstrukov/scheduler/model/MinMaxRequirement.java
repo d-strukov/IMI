@@ -1,15 +1,33 @@
 package lt.ktu.dstrukov.scheduler.model;
 
 
+/**
+ * @author  Denis
+ */
 public class MinMaxRequirement {
 
-	private int min,max;
+	/**
+	 * @uml.property  name="min"
+	 */
+	private int min;
+	/**
+	 * @uml.property  name="max"
+	 */
+	private int max;
 	
+	/**
+	 * @return
+	 * @uml.property  name="min"
+	 */
 	public int getMin() {
 		return min;
 	}
 
 
+	/**
+	 * @return
+	 * @uml.property  name="max"
+	 */
 	public int getMax() {
 		return max;
 	}

@@ -48,6 +48,13 @@ public class MainServlet extends HttpServlet {
 			if (o != null)
 				UpdateTheCharts(response);
 			break;
+		case 2:
+			if (o != null) {
+				response.addHeader("Content-Disposition",
+						"attachment; filename=result.zip");
+				o.getBest().asZipStream(response.getOutputStream());
+			}
+			break;
 
 		default:
 			break;

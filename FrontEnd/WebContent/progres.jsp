@@ -4,6 +4,7 @@
 
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
+<%@ taglib uri="http://myfaces.apache.org/tomahawk" prefix="t" %>
 
 <html>
 <script type="text/javascript" src="js/dojo/dojo.js"
@@ -39,6 +40,16 @@
 				}catch(err){
 				}
 		}
+
+		if(data.nodesBusy != 'undefined' ){
+			if(!data.nodesBusy && dojo.byId("btnStart").disabled) {
+				dojo.byId("btnStart").style.visibility="hidden";
+
+				dojo.byId("btnStart").text = "Finish";
+				dojo.byId("lnkNextDiv").style.visibility = 'visible';
+				
+			}
+		} 
 	}
 
 	function startRefreshing() {
@@ -133,7 +144,7 @@
 
 		<table border="0" width="100%" class="infoTable">
 			<tr>
-				<td width="100px"><strong>Central Initialized:</strong></td>
+				<td><strong>Central Initialized:</strong></td>
 				<td><em>true</em></td>
 			</tr>
 			<tr>
@@ -143,11 +154,12 @@
 			<tr>
 				<td><strong>File uploaded: </strong></td>
 				<td><em>true</em></td>
-			</tr>
+			</tr> 
 			<tr>
 				<td class="clearCell">&nbsp;</td>
 				<td class="clearCell">
 				<button id="btnStart" onClick="startProcess(); return false;">&nbsp;-=Start=-&nbsp;</button>
+				<div id="lnkNextDiv"  style="visibility: hidden;" > <t:commandLink value="Finish" action="#{wizardBean.next}" > </t:commandLink></div>
 				</td>
 			</tr>
 		</table>

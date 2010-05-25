@@ -5,7 +5,7 @@ package lt.ktu.dstrukov.schoolscheduler.model.io;
  * Last modified: April 05 2007 <br>
  * Status: Finished
  */
-import java.io.File;
+import java.io.InputStream;
 import java.io.Serializable;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -18,46 +18,52 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
-
+/**
+ * @author Denis
+ */
 public class XmlDataReader implements Serializable {
-	
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 6059979576613556296L;
-	private int row_count[], column_count[], sheet_count;
-	private String  name[];
- 
+	private int row_count[];
+	private int column_count[];
+	/**
+	 * @uml.property name="sheet_count"
+	 */
+	private int sheet_count;
+	private String name[];
+
 	private NodeList[] Data;
-	
-	XmlDataReader(String Path) {
-		//this.Path =Path;
+
+	XmlDataReader(InputStream stream) {
+		// this.Path =Path;
 		try {
 			DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory
 					.newInstance();
 			DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
-			Document doc = docBuilder.parse(new File(Path));
+			Document doc = docBuilder.parse(stream);
 			doc.getDocumentElement().normalize();
 
 			NodeList worksheets = doc.getElementsByTagName("Worksheet");
 			sheet_count = worksheets.getLength();
-			Data = new NodeList[sheet_count]; 
+			Data = new NodeList[sheet_count];
 			row_count = new int[sheet_count];
 			column_count = new int[sheet_count];
 			name = new String[sheet_count];
-			
-			
-			for (int i =0; i< sheet_count; i++){
+
+			for (int i = 0; i < sheet_count; i++) {
 				Node worksheet = worksheets.item(i);
 				Element ws = (Element) worksheet;
 				NodeList columns = ws.getElementsByTagName("Cell");
 				NodeList rows = ws.getElementsByTagName("Row");
-				row_count[i] = rows.getLength(); 
+				row_count[i] = rows.getLength();
 				column_count[i] = columns.getLength() / row_count[i] + 1;
 				Data[i] = rows;
 				name[i] = ws.getAttribute("ss:Name");
 			}
-			
+
 		} catch (SAXParseException err) {
 			System.out.println("** Parsing error" + ", line "
 					+ err.getLineNumber() + ", uri " + err.getSystemId());
@@ -74,7 +80,6 @@ public class XmlDataReader implements Serializable {
 		}
 	}
 
-
 	public int getColumn_count(int SheetNr) {
 		return column_count[SheetNr];
 	}
@@ -87,8 +92,12 @@ public class XmlDataReader implements Serializable {
 		return row_count[SheetNr];
 	}
 
+	/**
+	 * @return
+	 * @uml.property name="sheet_count"
+	 */
 	public int getSheet_count() {
-	
+
 		return sheet_count;
 	}
 

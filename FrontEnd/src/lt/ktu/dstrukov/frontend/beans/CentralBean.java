@@ -56,4 +56,12 @@ public class CentralBean {
 		return central.getResultsAsInts();
 	}
 
+	public boolean isNodesBusy() {
+		return central.isNodesBusy();
+	}
+
+	public Central getCentral() {
+		return central;
+	}
+
 }

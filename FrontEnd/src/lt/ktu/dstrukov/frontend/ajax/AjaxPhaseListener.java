@@ -31,7 +31,7 @@ public class AjaxPhaseListener implements PhaseListener {
 				String action[] = viewId.split("[.]");
 				handleAjaxRequest(event, action[1]);
 			} catch (Exception ex) {
-				ex.getMessage();
+				ex.printStackTrace();
 			}
 		}
 	}
@@ -56,6 +56,7 @@ public class AjaxPhaseListener implements PhaseListener {
 
 		if (action.equals("getData") && central != null) {
 			try {
+
 				JSONObject json = new JSONObject();
 				json.put("action", action);
 
@@ -66,6 +67,8 @@ public class AjaxPhaseListener implements PhaseListener {
 					json.put("node" + key, makeChartCharts(map.get(key)));
 				}
 
+				json.put("nodesBusy", central.isNodesBusy());
+
 				response.setContentType("text/plain");
 				response.setHeader("Cache-Control", "no-cache");
 
@@ -74,6 +77,27 @@ public class AjaxPhaseListener implements PhaseListener {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}
+
+		if (action.equals("getResult")) {
+
+			response.addHeader("Content-Disposition",
+					"attachment; filename=result.zip");
+
+			try {
+				central.getCentral().processResults(response.getOutputStream());
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+			try {
+				response.getWriter().write("OK");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			event.getFacesContext().responseComplete();
 		}
 
 		if (action.equals("start") && central != null) {

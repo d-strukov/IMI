@@ -6,6 +6,9 @@ import java.util.Set;
 
 import lt.ktu.dstrukov.scheduler.model.misc.IDGenerator;
 
+/**
+ * @author  Denis
+ */
 public class TimeFrame extends AbstractBase {
 
 	/**
@@ -15,6 +18,10 @@ public class TimeFrame extends AbstractBase {
 	
 	private static int counter=-1;
 	
+	/**
+	 * @uml.property  name="idGenerator"
+	 * @uml.associationEnd  
+	 */
 	private IDGenerator idGenerator;
 	
 	@Override
@@ -33,6 +40,10 @@ public class TimeFrame extends AbstractBase {
 		return idGenerator;
 	}
 
+	/**
+	 * @uml.property  name="parent"
+	 * @uml.associationEnd  
+	 */
 	private Periode parent;
 	
 	protected Set<Task> tasks = new HashSet<Task>();
@@ -60,6 +71,10 @@ public class TimeFrame extends AbstractBase {
 	}
 
 	
+	/**
+	 * @return
+	 * @uml.property  name="parent"
+	 */
 	public Periode getParent() {
 		return parent;
 	}

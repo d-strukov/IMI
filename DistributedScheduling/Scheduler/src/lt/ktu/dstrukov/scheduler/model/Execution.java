@@ -9,6 +9,9 @@ import lt.ktu.dstrukov.scheduler.exception.InsufficientResourceException;
 import lt.ktu.dstrukov.scheduler.model.collections.ResourceCollection;
 import lt.ktu.dstrukov.scheduler.model.misc.IDGenerator;
 
+/**
+ * @author Denis
+ */
 public class Execution extends AbstractBase {
 
 	/**
@@ -17,10 +20,27 @@ public class Execution extends AbstractBase {
 	private static final long serialVersionUID = 4210880125976709984L;
 
 	private static int count = -1;
+	/**
+	 * @uml.property name="idGenerator"
+	 * @uml.associationEnd
+	 */
 	private IDGenerator idGenerator;
+
+	/**
+	 * @uml.property name="resources"
+	 */
+
 	private List<Resource> resources = new ArrayList<Resource>();
+	/**
+	 * @uml.property name="task"
+	 * @uml.associationEnd
+	 */
 	private Task task;
 
+	/**
+	 * @return
+	 * @uml.property name="resources"
+	 */
 	protected List<Resource> getResources() {
 		return resources;
 	}
@@ -58,13 +78,13 @@ public class Execution extends AbstractBase {
 		// start collecting resources
 		for (ResourceCollection rc : allResources) {
 
-			// get resource requirements
+			// get resource requirementsGet
 			MinMaxRequirement minMax = req.get(rc);
 
 			// get task compatible resources
 			List<Resource> taskCompatible = taskCompatibleMap.get(rc);
 
-			// check if there is enough
+			// check if there is enoughSe
 			if (taskCompatible.size() < minMax.getMin()) {
 				return null;
 			}
@@ -135,6 +155,10 @@ public class Execution extends AbstractBase {
 		return idGenerator;
 	}
 
+	/**
+	 * @return
+	 * @uml.property name="task"
+	 */
 	public Task getTask() {
 		return task;
 	}

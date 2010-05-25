@@ -1,6 +1,6 @@
 package lt.ktu.dstrukov.schoolscheduler.model.io;
 
-import java.io.File;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,22 +20,30 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+/**
+ * @author Denis
+ */
 public class DataParser {
 
 	protected static final String DELIMITER2 = "#";
 
 	protected static final String DELIMITER1 = ";";
 
+	/**
+	 * @uml.property name="data"
+	 * @uml.associationEnd
+	 */
 	private SchoolData data;
 
+	/**
+	 * @uml.property name="reader"
+	 * @uml.associationEnd
+	 */
 	private XmlDataReader reader;
 
-	public DataParser(SchoolData d, File file) {
+	public DataParser(SchoolData d, InputStream input) {
 		data = d;
-		System.out.println("File Found:  " + file.exists());
-		String path = "";
-		path = file.getPath();
-		reader = new XmlDataReader(path);
+		reader = new XmlDataReader(input);
 
 		parseJobTypes(reader);
 		parseStudents(reader);
@@ -75,10 +83,19 @@ public class DataParser {
 							flag = false;
 						}
 
-						if (k < 2)
+						if (k < 1)
 							continue;
 
-						if (k < data.getTaskCollection().size() + 2) {
+						if (k == 1) {
+							try {
+								student.setDescription(list.getNodeValue());
+							} catch (Exception ex) {
+								student.setDescription("No Name");
+							}
+							continue;
+						}
+
+						if (k > 2 && k < data.getTaskCollection().size() + 2) {
 							if (flag) {
 
 								String jobDescriptorString = list
@@ -132,7 +149,7 @@ public class DataParser {
 			String hours = "";
 			String codes = "";
 			String groups = "";
-			String classrooms ="";
+			String classrooms = "";
 			String periodeRestrictions = "";
 
 			for (int k = 0; k < cells.getLength(); k++) {
@@ -173,19 +190,17 @@ public class DataParser {
 
 			}
 
-			if (!hours.isEmpty() || !codes.isEmpty() || !groups.isEmpty() || !classrooms.isEmpty()) {
-				parseJobTypesAndHours(teacher, hours, codes,classrooms);
+			if (!hours.isEmpty() || !codes.isEmpty() || !groups.isEmpty()
+					|| !classrooms.isEmpty()) {
+				parseJobTypesAndHours(teacher, hours, codes, classrooms);
 				parseIssuerGroups(teacher, groups, codes);
-				
+
 				data.addTeacher(teacher);
 			}
 
 		}
 
 	}
-	
-	
-	
 
 	/**
 	 * Parses {@link Task}s that given server can serve and assigns capacity to
@@ -229,28 +244,25 @@ public class DataParser {
 			t.add(jt);
 			// jt.addServer(s);
 		}
-		
-		
 
 		for (String str : classSplit) {
 			Room r = data.getRoomByCode(str);
-			if (r == null){
-				r= new Room(str);
+			if (r == null) {
+				r = new Room(str);
 				data.addRoom(r);
 				r.addCompatibleResourceOwners(teacher);
-				for(Task task : t){
+				for (Task task : t) {
 					r.addCompatibleTask(task);
 				}
 				Environment env = new Environment(r);
 				data.addEnvironment(env);
 			} else {
 				r.addCompatibleResourceOwners(teacher);
-				for(Task task : t){
+				for (Task task : t) {
 					r.addCompatibleTask(task);
-				}				
+				}
 			}
-				
-			
+
 			// jt.addServer(s);
 		}
 
@@ -311,7 +323,8 @@ public class DataParser {
 					valid = true;
 					NodeList d = eilute.getElementsByTagName("Data");
 					Node duom = d.item(k);
-					if (duom == null || duom.getFirstChild().getNodeValue().equals("")) {
+					if (duom == null
+							|| duom.getFirstChild().getNodeValue().equals("")) {
 						valid = false;
 						break;
 					}
@@ -327,8 +340,8 @@ public class DataParser {
 				if (valid && data.getTaskByCode(type.getCode()) != null)
 					type = data.getTaskByCode(type.getCode());
 
-				if(valid)
-				data.addTask(type);
+				if (valid)
+					data.addTask(type);
 			}
 		}
 	}

@@ -1,7 +1,9 @@
 package lt.ktu.dstrukov.central.semantics;
 
-import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -18,13 +20,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import lt.ktu.dstrukov.central.interfaces.ICentral;
 import lt.ktu.dstrukov.commons.OptimizationParameters;
 import lt.ktu.dstrukov.commons.Result;
 import lt.ktu.dstrukov.commons.utils.RMIUtil;
 import lt.ktu.dstrukov.node.interfaces.INode;
+import lt.ktu.dstrukov.scheduler.model.ResourceOwner;
 import lt.ktu.dstrukov.schoolscheduler.model.SchoolData;
+import lt.ktu.dstrukov.schoolscheduler.model.SchoolSchedule;
+import lt.ktu.dstrukov.schoolscheduler.model.Student;
+import lt.ktu.dstrukov.schoolscheduler.model.Teacher;
 import lt.ktu.dstrukov.schoolscheduler.model.io.DataParser;
 
 public class Central extends UnicastRemoteObject implements ICentral {
@@ -42,6 +50,8 @@ public class Central extends UnicastRemoteObject implements ICentral {
 	private List<Integer> mainResults = new ArrayList<Integer>();
 	private int currentBest = -1;
 	private static volatile int nodeIds = 0;
+	private OptimizationParameters parameters;
+	private int bestNodeID = -1;
 
 	/**
 	 * 
@@ -53,7 +63,7 @@ public class Central extends UnicastRemoteObject implements ICentral {
 	public Central() throws RemoteException {
 		super();
 
-		initializeData(new File("SchoolData1.xml"));
+		// initializeData(new File("SchoolData1.xml"));
 		bindCentral();
 		broadcastLocation();
 
@@ -104,7 +114,7 @@ public class Central extends UnicastRemoteObject implements ICentral {
 								buf.length, address, broadcastPort);
 
 						socket.send(packet);
-						System.out.println("Bradcasting location");
+						// System.out.println("Bradcasting location");
 						try {
 							Thread.sleep(10000);
 						} catch (InterruptedException e) {
@@ -129,7 +139,7 @@ public class Central extends UnicastRemoteObject implements ICentral {
 
 	}
 
-	public void initializeData(File f) {
+	public void initializeData(InputStream f) {
 		new DataParser(data, f);
 	}
 
@@ -141,12 +151,15 @@ public class Central extends UnicastRemoteObject implements ICentral {
 			if (firstResult == null) {
 				firstResult = res;
 				currentBest = Integer.parseInt(res.getResultString());
+				bestNodeID = nodeId;
 				mainResults.add(currentBest);
 			}
 
 			if (currentBest > Integer.parseInt(res.getResultString())) {
 				currentBest = Integer.parseInt(res.getResultString());
+				System.out.println(currentBest);
 				mainResults.add(currentBest);
+				bestNodeID = nodeId;
 			}
 
 			List<Result> lst;
@@ -193,6 +206,19 @@ public class Central extends UnicastRemoteObject implements ICentral {
 		return ret;
 	}
 
+	public boolean isNodesBusy() {
+		boolean ret = true;
+		for (INode n : registeredNodes) {
+			try {
+				ret &= n.isBusy();
+			} catch (RemoteException e) {
+				// broken node
+				registeredNodes.remove(n);
+			}
+		}
+		return ret;
+	}
+
 	@Override
 	public void setData(Object data) throws RemoteException {
 
@@ -208,13 +234,16 @@ public class Central extends UnicastRemoteObject implements ICentral {
 	public OptimizationParameters getOptimizationParameters()
 			throws RemoteException {
 
-		return new OptimizationParameters();
+		if (parameters == null)
+			return new OptimizationParameters();
+		else
+			return parameters;
 	}
 
 	@Override
 	public void setOptimizationParameters(OptimizationParameters params)
 			throws RemoteException {
-
+		parameters = params;
 	}
 
 	@Override
@@ -297,4 +326,68 @@ public class Central extends UnicastRemoteObject implements ICentral {
 		return mainResults;
 	}
 
+	public void processResults(OutputStream stream) {
+
+		SchoolSchedule best = null;
+		for (INode node : registeredNodes) {
+			try {
+				if (node.getId() == bestNodeID) {
+					best = (SchoolSchedule) node.getBest();
+					break;
+				}
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		if (best == null) {
+			System.out.print("error getting best");
+			return;
+		}
+
+		byte[] buf = new byte[1024];
+		try {
+
+			ZipOutputStream out = new ZipOutputStream(stream);
+
+			for (ResourceOwner ro : best.getData()
+					.getResourceOwnerCollections().get(SchoolData.STUDENTS)) {
+				Student s = (Student) ro;
+				FileInputStream in = new FileInputStream(s.getDescription());
+				out
+						.putNextEntry(new ZipEntry("students/"
+								+ s.getDescription()));
+				int len;
+				while ((len = in.read(buf)) > 0) {
+					out.write(buf, 0, len);
+				}
+				// Complete the entry
+				out.closeEntry();
+				in.close();
+			}
+
+			for (ResourceOwner ro : best.getData()
+					.getResourceOwnerCollections().get(SchoolData.TEACHERS)) {
+				Teacher s = (Teacher) ro;
+				FileInputStream in = new FileInputStream(s.getDescription());
+				out
+						.putNextEntry(new ZipEntry("teachers/"
+								+ s.getDescription()));
+				int len;
+				while ((len = in.read(buf)) > 0) {
+					out.write(buf, 0, len);
+				}
+				// Complete the entry
+				out.closeEntry();
+				in.close();
+			}
+
+			// Complete the ZIP file
+			out.close();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
 }

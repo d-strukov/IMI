@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="Dependencies" size="833,446" id="." metadata="uml2-1.0" initialized="true" scrolledY="-35" tag="1000" key="32303037303533312D31303030205363686564756C65722F44656E6973">
+  <children xsi:type="editmodel:PackageEditModel" name="lt.ktu.dstrukov.scheduler" location="395,-60" size="188,60" id="lt.ktu.dstrukov.scheduler"/>
+  <children xsi:type="editmodel:PackageEditModel" targetConnections="//@children.2/@sourceConnections.2 //@children.3/@sourceConnections.1" name="lt.ktu.dstrukov.scheduler.model.collections" location="360,153" size="303,60" id="lt.ktu.dstrukov.scheduler.model.collections">
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="lt.ktu.dstrukov.scheduler.model.collections-Soyatec::Import->lt.ktu.dstrukov.scheduler.model.misc" source="//@children.1" target="//@children.4" targetEnd="//@children.1/@sourceConnections.0/@children.2" label="//@children.1/@sourceConnections.0/@children.0" sourceEnd="//@children.1/@sourceConnections.0/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Import»" size="41,14" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,30" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="264,30"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="lt.ktu.dstrukov.scheduler.model.collections-Standard::Derive->lt.ktu.dstrukov.scheduler.model" source="//@children.1" target="//@children.2" targetEnd="//@children.1/@sourceConnections.1/@children.2" label="//@children.1/@sourceConnections.1/@children.0" sourceEnd="//@children.1/@sourceConnections.1/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Derive»" size="43,14" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="37,0" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="346,55"/>
+    </sourceConnections>
+  </children>
+  <children xsi:type="editmodel:PackageEditModel" targetConnections="//@children.1/@sourceConnections.1 //@children.3/@sourceConnections.0" name="lt.ktu.dstrukov.scheduler.model" location="50,15" size="346,60" id="lt.ktu.dstrukov.scheduler.model">
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="lt.ktu.dstrukov.scheduler.model-Standard::Call->lt.ktu.dstrukov.scheduler.model.misc*lt.ktu.dstrukov.scheduler.model-Soyatec::Import->lt.ktu.dstrukov.scheduler.model.misc" source="//@children.2" target="//@children.4" targetEnd="//@children.2/@sourceConnections.0/@children.2" label="//@children.2/@sourceConnections.0/@children.0" sourceEnd="//@children.2/@sourceConnections.0/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Call, Import»" size="64,14" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="131,60" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="131,0"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="lt.ktu.dstrukov.scheduler.model-Standard::Call->lt.ktu.dstrukov.scheduler.exception*lt.ktu.dstrukov.scheduler.model-Standard::Send->lt.ktu.dstrukov.scheduler.exception*lt.ktu.dstrukov.scheduler.model-Standard::Instantiate->lt.ktu.dstrukov.scheduler.exception*lt.ktu.dstrukov.scheduler.model-Soyatec::Import->lt.ktu.dstrukov.scheduler.exception" source="//@children.2" target="//@children.3" targetEnd="//@children.2/@sourceConnections.1/@children.2" label="//@children.2/@sourceConnections.1/@children.0" sourceEnd="//@children.2/@sourceConnections.1/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Call, Send, Import, Instantiate»" size="150,14" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="346,37" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,22"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="lt.ktu.dstrukov.scheduler.model-Standard::Call->lt.ktu.dstrukov.scheduler.model.collections*lt.ktu.dstrukov.scheduler.model-Soyatec::Import->lt.ktu.dstrukov.scheduler.model.collections*lt.ktu.dstrukov.scheduler.model-Soyatec::Implement->lt.ktu.dstrukov.scheduler.model.collections" source="//@children.2" target="//@children.1" targetEnd="//@children.2/@sourceConnections.2/@children.2" label="//@children.2/@sourceConnections.2/@children.0" sourceEnd="//@children.2/@sourceConnections.2/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Call, Import, Implement»" size="0,14" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="327,60" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="17,0"/>
+    </sourceConnections>
+  </children>
+  <children xsi:type="editmodel:PackageEditModel" targetConnections="//@children.2/@sourceConnections.1" name="lt.ktu.dstrukov.scheduler.exception" location="540,30" size="254,60" id="lt.ktu.dstrukov.scheduler.exception">
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="lt.ktu.dstrukov.scheduler.exception-Soyatec::Import->lt.ktu.dstrukov.scheduler.model" source="//@children.3" target="//@children.2" targetEnd="//@children.3/@sourceConnections.0/@children.2" label="//@children.3/@sourceConnections.0/@children.0" sourceEnd="//@children.3/@sourceConnections.0/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Import»" size="41,14" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,26" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="346,57"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="lt.ktu.dstrukov.scheduler.exception-Soyatec::Import->lt.ktu.dstrukov.scheduler.model.collections" source="//@children.3" target="//@children.1" targetEnd="//@children.3/@sourceConnections.1/@children.2" label="//@children.3/@sourceConnections.1/@children.0" sourceEnd="//@children.3/@sourceConnections.1/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Import»" size="0,14" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="61,60" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="241,0"/>
+    </sourceConnections>
+  </children>
+  <children xsi:type="editmodel:PackageEditModel" targetConnections="//@children.2/@sourceConnections.0 //@children.1/@sourceConnections.0" name="lt.ktu.dstrukov.scheduler.model.misc" location="50,153" size="264,60" id="lt.ktu.dstrukov.scheduler.model.misc"/>
+  <diagramOptions xsi:type="options:ClassDiagramOptions" interactive="false" properties="wireOptions=4;Product=eUML2;displayOptions=1"/>
+  <boardSetting snapToGeometry="true" gridEnabled="true" gridSpacing="15,15" gridOrigin="0,0" rulerUnit="pixel" gridVisibility="false">
+    <leftRuler/>
+    <topRuler/>
+  </boardSetting>
+  <classDiagramPreferences xsi:type="editmodel:UMLClassDiagramPreference" showPopupBars="true" showConnectionHandles="true" attributeSorter="Natural" methodSorter="Natural" showClassStereotype="true" showPackageStereotype="true" showDependencyStereotype="true" showInterfaceStereotype="true" innerClassSorter="Natural" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3"/>
+</editmodel:ClassDiagramEditModel>

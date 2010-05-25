@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf12570011674690" configfile="/FrontEnd/WebContent/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="index" x="168" y="84" id="pf12570160227974" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf12570160605865 pf12574592964820" path="/index.jsp"/>
-  <nodes xsi:type="pageflow:PFPage" name="FileUpload" x="362" y="98" id="pf12570160605866" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf12570160605865" path="/FileUpload.jsp"/>
-  <nodes xsi:type="pageflow:PFPage" name="progres" x="201" y="265" id="pf12574592964821" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf12574592964820" path="/progres.jsp"/>
-  <links id="pf12570160605865" target="pf12570160605866" source="pf12570160227974"/>
-  <links id="pf12574592964820" target="pf12574592964821" source="pf12570160227974"/>
+  <nodes xsi:type="pageflow:PFPage" name="FileUpload" x="192" y="55" id="pf12570160605866" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf12744187611692" inlinks="pf12744187611693" path="/FileUpload.jsp"/>
+  <nodes xsi:type="pageflow:PFPage" name="Welcome" x="96" y="156" id="pf12744184038080" referenceLink="//@navigationRule.4/@navigationCase.0/@toViewId|" outlinks="pf12744187611693" inlinks="pf12744187611694" path="/Welcome.jsp"/>
+  <nodes xsi:type="pageflow:PFPage" name="Results" x="253" y="276" id="pf12744185165191" referenceLink="//@navigationRule.4/@fromViewId|" outlinks="pf12744187611694" inlinks="pf12744187611695" path="/Results.jsp"/>
+  <nodes xsi:type="pageflow:PFPage" name="progres" x="396" y="144" id="pf12744187611696" referenceLink="//@navigationRule.3/@fromViewId|" outlinks="pf12744187611695" inlinks="pf12744187611697" path="/progres.jsp"/>
+  <nodes xsi:type="pageflow:PFPage" name="Params" x="300" y="48" id="pf12744187611708" referenceLink="//@navigationRule.2/@fromViewId|" outlinks="pf12744187611697" inlinks="pf12744187611692" path="/Params.jsp"/>
+  <links id="pf12744187611693" target="pf12570160605866" source="pf12744184038080" outcome="upload" redirect="true"/>
+  <links id="pf12744187611692" target="pf12744187611708" source="pf12570160605866" outcome="params" redirect="true"/>
+  <links id="pf12744187611697" target="pf12744187611696" source="pf12744187611708" outcome="progress" redirect="true"/>
+  <links id="pf12744187611695" target="pf12744185165191" source="pf12744187611696" outcome="results" redirect="true"/>
+  <links id="pf12744187611694" target="pf12744184038080" source="pf12744185165191" outcome="welcome" redirect="true"/>
 </pageflow:Pageflow>

@@ -6,5 +6,7 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/Node"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Central"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/ScheduleOptimizator"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/SchoolScheduler"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Scheduler"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
