@@ -56,4 +56,8 @@ public class Job extends Resource {
 		return this.task == task;
 	}
 
+	public SchoolTask getTask() {
+		return task;
+	}
+
 }

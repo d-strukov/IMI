@@ -164,7 +164,8 @@ public class DataParser {
 
 				switch (k) {
 				case 3:
-
+					if (nnn != null)
+						teacher.setDescription(nnn.getNodeValue());
 					break;
 				case 4:
 					if (nnn != null)
