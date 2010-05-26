@@ -1,6 +1,6 @@
 package lt.ktu.dstrukov.central.semantics;
 
-import java.io.FileInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -28,9 +28,14 @@ import lt.ktu.dstrukov.commons.OptimizationParameters;
 import lt.ktu.dstrukov.commons.Result;
 import lt.ktu.dstrukov.commons.utils.RMIUtil;
 import lt.ktu.dstrukov.node.interfaces.INode;
+import lt.ktu.dstrukov.scheduler.model.Periode;
+import lt.ktu.dstrukov.scheduler.model.Resource;
 import lt.ktu.dstrukov.scheduler.model.ResourceOwner;
+import lt.ktu.dstrukov.scheduler.model.TimeFrame;
+import lt.ktu.dstrukov.schoolscheduler.model.Job;
 import lt.ktu.dstrukov.schoolscheduler.model.SchoolData;
 import lt.ktu.dstrukov.schoolscheduler.model.SchoolSchedule;
+import lt.ktu.dstrukov.schoolscheduler.model.Server;
 import lt.ktu.dstrukov.schoolscheduler.model.Student;
 import lt.ktu.dstrukov.schoolscheduler.model.Teacher;
 import lt.ktu.dstrukov.schoolscheduler.model.io.DataParser;
@@ -353,10 +358,14 @@ public class Central extends UnicastRemoteObject implements ICentral {
 			for (ResourceOwner ro : best.getData()
 					.getResourceOwnerCollections().get(SchoolData.STUDENTS)) {
 				Student s = (Student) ro;
-				FileInputStream in = new FileInputStream(s.getDescription());
-				out
-						.putNextEntry(new ZipEntry("students/"
-								+ s.getDescription()));
+
+				ByteArrayInputStream in = new ByteArrayInputStream(
+						getResultBytes(s, best));
+
+				if (s.getDescription() == null)
+					continue;
+				out.putNextEntry(new ZipEntry("students/" + s.getDescription()
+						+ ".xml"));
 				int len;
 				while ((len = in.read(buf)) > 0) {
 					out.write(buf, 0, len);
@@ -369,11 +378,16 @@ public class Central extends UnicastRemoteObject implements ICentral {
 			for (ResourceOwner ro : best.getData()
 					.getResourceOwnerCollections().get(SchoolData.TEACHERS)) {
 				Teacher s = (Teacher) ro;
-				FileInputStream in = new FileInputStream(s.getDescription());
-				out
-						.putNextEntry(new ZipEntry("teachers/"
-								+ s.getDescription()));
+
+				ByteArrayInputStream in = new ByteArrayInputStream(
+						getResultBytes(s, best));
+
+				if (s.getDescription() == null)
+					continue;
+				out.putNextEntry(new ZipEntry("teachers/" + s.getDescription()
+						+ ".xml"));
 				int len;
+
 				while ((len = in.read(buf)) > 0) {
 					out.write(buf, 0, len);
 				}
@@ -383,6 +397,7 @@ public class Central extends UnicastRemoteObject implements ICentral {
 			}
 
 			// Complete the ZIP file
+			out.flush();
 			out.close();
 
 		} catch (IOException e) {
@@ -390,4 +405,62 @@ public class Central extends UnicastRemoteObject implements ICentral {
 		}
 
 	}
+
+	private byte[] getResultBytes(ResourceOwner s, SchoolSchedule best) {
+		StringBuffer sb = new StringBuffer();
+
+		sb
+				.append("<?xml version=\"1.0\"?> "
+						+ "<Workbook xmlns=\"urn:schemas-microsoft-com:office:spreadsheet\" "
+						+ "xmlns:o=\"urn:schemas-microsoft-com:office:office\"  "
+						+ "xmlns:x=\"urn:schemas-microsoft-com:office:excel\" "
+						+ "xmlns:ss=\"urn:schemas-microsoft-com:office:spreadsheet\"  "
+						+ "xmlns:html=\"http://www.w3.org/TR/REC-html40\">  "
+						+ "<Styles> "
+						+ "<Style ss:ID=\"Default\" ss:Name=\"Normal\"> "
+						+ "<Alignment ss:Vertical=\"Bottom\"/> "
+						+ "<Borders/> " + "<Font/> " + "<Interior/> "
+						+ "<NumberFormat/> " + "<Protection/>  " + "</Style> "
+						+ "</Styles> " + "<Worksheet ss:Name=\"Schedule\">  "
+						+ "<Table>");
+
+		int j = 1;
+		for (Periode p : best.getPeriods()) {
+			sb.append("<Row>");
+			sb.append("<Cell>");
+			sb.append("<Data ss:Type=\"String\">" + (j++) + "-periode </Data>");
+			sb.append("</Cell>");
+			sb.append("</Row>");
+
+			int i = 1;
+			for (TimeFrame tf : p.getFrames()) {
+				sb.append("<Row>");
+				sb.append("<Cell>");
+				sb.append("<Data ss:Type=\"String\">" + (i++)
+						+ "-lesson </Data>");
+				sb.append("</Cell>");
+				sb.append("<Cell>");
+				try {
+					String code = "";
+					Resource res = tf.getResourceOf(s);
+					if (res instanceof Job)
+						code = ((Job) res).getTask().getCode();
+
+					if (res instanceof Server)
+						code = ((Server) res).getTask().getCode();
+
+					sb.append("<Data ss:Type=\"String\">" + code + " </Data>");
+				} catch (Exception ex) {
+					// ignore
+				}
+				sb.append("</Cell>");
+				sb.append("</Row>");
+			}
+		}
+
+		sb.append("</Table></Worksheet></Workbook>");
+
+		return sb.toString().getBytes();
+	}
+
 }
