@@ -9,7 +9,7 @@ import lt.ktu.dstrukov.scheduler.model.collections.TaskCollection;
 import lt.ktu.dstrukov.scheduler.model.misc.IDGenerator;
 
 /**
- * @author  Denis
+ * @author Denis
  */
 public abstract class Schedule extends AbstractBase {
 
@@ -20,32 +20,31 @@ public abstract class Schedule extends AbstractBase {
 
 	private static int count = -1;
 	/**
-	 * @uml.property  name="idGenerator"
-	 * @uml.associationEnd  
+	 * @uml.property name="idGenerator"
+	 * @uml.associationEnd
 	 */
 	private IDGenerator idGenerator;
 	/**
-	 * @uml.property  name="periods"
+	 * @uml.property name="periods"
 	 */
 	private List<Periode> periods = new ArrayList<Periode>();
 	private List<Execution> executions = new ArrayList<Execution>();
 	/**
-	 * @uml.property  name="data"
-	 * @uml.associationEnd  
+	 * @uml.property name="data"
+	 * @uml.associationEnd
 	 */
 	private Data data;
-	
 
 	/**
 	 * @return
-	 * @uml.property  name="data"
+	 * @uml.property name="data"
 	 */
 	protected Data getData() {
 		return data;
 	}
 
 	public Schedule(Data data) {
-		this.data=data;
+		this.data = data;
 		// Initialize Periods and TimeFrames
 		for (int i = 0; i < getPeriodCount(); i++) {
 			Periode p = new Periode(getFramesPerPeriod());
@@ -57,57 +56,66 @@ public abstract class Schedule extends AbstractBase {
 		List<Task> skipTasks = new ArrayList<Task>();
 		while (!getResourceCollectionToExaust().isEmpty()) {
 			for (Task task : tasks) {
-				
-				if(skipTasks.contains(task)) continue;
-				if(getResourceCollectionToExaust().isEmpty()) break;
+
+				if (skipTasks.contains(task))
+					continue;
+				if (getResourceCollectionToExaust().isEmpty())
+					break;
 				boolean skipTask = false;
-				
+
 				for (Periode p : periods) {
-					if(getResourceCollectionToExaust().isEmpty()) break;
+					if (getResourceCollectionToExaust().isEmpty())
+						break;
 					boolean skipPeriode = false;
 					for (TimeFrame frame : p.getFrames()) {
-						if(getResourceCollectionToExaust().isEmpty()) break;
-						
+						if (getResourceCollectionToExaust().isEmpty())
+							break;
+
 						Execution e = null;
-						try{
-							e=Execution.createExecution(data, task,frame);
-						}catch(InsufficientResourceException ex) {
-							
+						try {
+							e = Execution.createExecution(data, task, frame);
+						} catch (InsufficientResourceException ex) {
+
 							Action test = handleInsufitientResourceException(ex);
 							switch (test) {
 							case Fatal:
-								throw new  RuntimeException(ex.getMessage());
+								throw new RuntimeException(ex.getMessage());
 							case SkipPeriode:
-								skipPeriode =true;
+								skipPeriode = true;
 								break;
 							case SkipTask:
 								skipTasks.add(ex.getTask());
-								skipTask =true;
+								skipTask = true;
 								break;
 							default:
 								break;
 							}
-							
-						} catch(Exception ex){
+
+						} catch (Exception ex) {
 							System.out.println(ex.getMessage());
 						}
-								
-						
-						if(e!=null){
+
+						if (e != null) {
 							executions.add(e);
 							frame.registerExecution(e);
-							getResourceCollectionToExaust().removeAll(e.getResources());
+							getResourceCollectionToExaust().removeAll(
+									e.getResources());
+
+							// skip to next period
+							skipPeriode = true;
 						}
-						if(skipPeriode || skipTask) break;
+						if (skipPeriode || skipTask)
+							break;
 					}
-					if(skipTask)break;
+					if (skipTask)
+						break;
 				}
 
 			}
 
 		}
-		
-		//System.out.println("Finished");
+
+		// System.out.println("Finished");
 
 	}
 
@@ -127,36 +135,41 @@ public abstract class Schedule extends AbstractBase {
 	}
 
 	/**
-	 * Return an integer - period count. Normally denotes days 
+	 * Return an integer - period count. Normally denotes days
+	 * 
 	 * @return period count
 	 */
 	protected abstract int getPeriodCount();
 
 	/**
-	 *  Return integer - frames per period. Nor
+	 * Return integer - frames per period. Nor
+	 * 
 	 * @return
 	 */
 	protected abstract int getFramesPerPeriod();
-	
+
 	/**
-	 * Return Resource Collection that has to be exhausted before Schedule is considered complete
+	 * Return Resource Collection that has to be exhausted before Schedule is
+	 * considered complete
+	 * 
 	 * @return Resource collection
 	 */
 	protected abstract ResourceCollection getResourceCollectionToExaust();
-	
-	protected abstract Action handleInsufitientResourceException(InsufficientResourceException ex);
-	
+
+	protected abstract Action handleInsufitientResourceException(
+			InsufficientResourceException ex);
+
 	/**
-	 * Provide a function to evaluate quality of a schedule. (Application will try to minimize given function)
+	 * Provide a function to evaluate quality of a schedule. (Application will
+	 * try to minimize given function)
+	 * 
 	 * @return number of penalty points
 	 */
 	public abstract int evaluateQuality();
 
-	
-	
 	/**
 	 * @return
-	 * @uml.property  name="periods"
+	 * @uml.property name="periods"
 	 */
 	public List<Periode> getPeriods() {
 		return periods;
