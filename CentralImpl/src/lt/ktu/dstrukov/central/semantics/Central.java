@@ -145,6 +145,7 @@ public class Central extends UnicastRemoteObject implements ICentral {
 	}
 
 	public void initializeData(InputStream f) {
+		data.clear();
 		new DataParser(data, f);
 	}
 

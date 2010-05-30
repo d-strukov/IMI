@@ -10,8 +10,14 @@ public class RMIUtil {
 
 	public static Registry getRegistry(int port) throws RemoteException {
 
-		if (reg != null)
-			return reg;
+		if (reg != null) {
+			try {
+				reg.list();
+				return reg;
+			} catch (RemoteException e) {
+				// e.printStackTrace();
+			}
+		}
 
 		try {
 			reg = LocateRegistry.getRegistry(port);
