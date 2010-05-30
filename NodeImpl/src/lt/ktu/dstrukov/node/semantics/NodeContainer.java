@@ -140,7 +140,7 @@ public class NodeContainer {
 
 		String serviceName = "NodeSvc" + index;
 		try {
-			// System.out.println("Binding to: " + getAddress() + serviceName);
+			System.out.println("Binding to: " + getAddress() + serviceName);
 			RMIUtil.getRegistry(registryPort).bind(serviceName, svc);
 
 			System.out.println("Node Bound at: " + getAddress() + ":"
