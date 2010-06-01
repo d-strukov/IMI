@@ -60,4 +60,9 @@ public class Job extends Resource {
 		return task;
 	}
 
+	@Override
+	public String toString() {
+		return "Job [task=" + task + "; owner = " + getOwner() + " ]";
+	}
+
 }

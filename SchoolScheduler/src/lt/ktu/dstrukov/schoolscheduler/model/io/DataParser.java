@@ -95,7 +95,7 @@ public class DataParser {
 							continue;
 						}
 
-						if (k > 2 && k < data.getTaskCollection().size() + 2) {
+						if (k >= 2 && k < data.getTaskCollection().size() + 2) {
 							if (flag) {
 
 								String jobDescriptorString = list
@@ -118,7 +118,7 @@ public class DataParser {
 											.getTaskBySequence(k - 2), level);
 									// data.getJobType(k - 2).addJob(job);
 									data.addJob(job);
-									student.addJob(job);
+									// student.addJob(job);
 								}
 
 							}

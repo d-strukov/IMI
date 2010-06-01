@@ -208,8 +208,8 @@ public class SchoolData extends Data {
 		servers.clear();
 		rooms.clear();
 		groups.clear();
-		resourceCollectionList.clear();
-		ownerCollectionList.clear();
+		// resourceCollectionList.clear();
+		// ownerCollectionList.clear();
 
 	}
 

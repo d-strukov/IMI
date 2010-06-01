@@ -3,6 +3,8 @@ package lt.ktu.dstrukov.schoolscheduler.model;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -116,6 +118,21 @@ public class SchoolSchedule extends Schedule {
 
 		if (ex.getCollection().size() <= 0)
 			return Action.Fatal;
+
+		boolean servers = false;
+		List<Resource> available = new ArrayList<Resource>();
+		for (Resource res : ex.getCollection()) {
+			if (res instanceof Server) {
+				servers = true;
+				Server s = (Server) res;
+				if (s.getTask().equals(task))
+					available.add(res);
+			}
+		}
+
+		if (servers && available.size() <= 0)
+			return Action.Fatal;
+
 		Resource r = ex.getCollection().get(0);
 
 		if (r instanceof Job) {

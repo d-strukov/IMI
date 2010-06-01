@@ -1,15 +1,15 @@
 package lt.ktu.dstrukov.schoolscheduler.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import lt.ktu.dstrukov.scheduler.model.ResourceOwner;
-import java.util.Collection;
 
 /**
- * @author  Denis
+ * @author Denis
  */
 public class Student extends ResourceOwner {
 
@@ -19,8 +19,8 @@ public class Student extends ResourceOwner {
 	private static final long serialVersionUID = -5531926260294809834L;
 
 	/**
-	 * @uml.property  name="group"
-	 * @uml.associationEnd  
+	 * @uml.property name="group"
+	 * @uml.associationEnd
 	 */
 	private StudentGroup group;
 	private List<Job> jobs = new ArrayList<Job>();
@@ -37,7 +37,7 @@ public class Student extends ResourceOwner {
 
 	/**
 	 * @return
-	 * @uml.property  name="group"
+	 * @uml.property name="group"
 	 */
 	public StudentGroup getGroup() {
 		return group;
@@ -53,6 +53,9 @@ public class Student extends ResourceOwner {
 		if (!this.isSameLavel(s))
 			return false;
 
+		if (this.equals(s))
+			return false;
+
 		// student has to belong to same taskGroup if one exists
 		if (taskGroup.containsKey(task))
 			return taskGroup.get(task).contains(s);
@@ -62,26 +65,27 @@ public class Student extends ResourceOwner {
 	}
 
 	public boolean isCompatibleWithTeacher(SchoolTask task, Teacher t) {
-		
-		//Student has to stay with his teacher
+
+		// Student has to stay with his teacher
 		if (taskTeacher.containsKey(task))
 			return taskTeacher.get(task).equals(t);
 
-		
-		//no violations detected
+		// no violations detected
 		return true;
 	}
 
 	/**
-	 * @uml.property  name="jobs"
-	 * @uml.associationEnd  multiplicity="(0 -1)" inverse="student:lt.ktu.dstrukov.schoolscheduler.model.Job"
+	 * @uml.property name="jobs"
+	 * @uml.associationEnd multiplicity="(0 -1)"
+	 *                     inverse="student:lt.ktu.dstrukov.schoolscheduler.model.Job"
 	 */
 	private Collection<Job> jobs1;
 
 	/**
 	 * Getter of the property <tt>jobs</tt>
-	 * @return  Returns the jobs1.
-	 * @uml.property  name="jobs"
+	 * 
+	 * @return Returns the jobs1.
+	 * @uml.property name="jobs"
 	 */
 	public Collection<Job> getJobs() {
 		return jobs1;
@@ -89,8 +93,10 @@ public class Student extends ResourceOwner {
 
 	/**
 	 * Setter of the property <tt>jobs</tt>
-	 * @param jobs  The jobs1 to set.
-	 * @uml.property  name="jobs"
+	 * 
+	 * @param jobs
+	 *            The jobs1 to set.
+	 * @uml.property name="jobs"
 	 */
 	public void setJobs(Collection<Job> jobs) {
 		jobs1 = jobs;

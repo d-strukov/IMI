@@ -22,17 +22,19 @@ public class Teacher extends ResourceOwner {
 	/**
 	 * Check if this Teacher can serve a task to a student group
 	 * 
-	 * @param task - Check against given task
-	 * @param group - Student Group
+	 * @param task
+	 *            - Check against given task
+	 * @param group
+	 *            - Student Group
 	 * @return
 	 */
-	public boolean canServeStudnetGroup(SchoolTask task, StudentGroup group){
-		if(!tasks.contains(task)) return false;
-		
+	public boolean canServeStudnetGroup(SchoolTask task, StudentGroup group) {
+		if (!tasks.contains(task))
+			return false;
+
 		return limitations.get(task).contains(group);
 	}
-	
-	
+
 	public void addTaskLimitations(SchoolTask task, List<StudentGroup> groups) {
 
 		if (limitations.containsKey(task)) {
@@ -45,6 +47,10 @@ public class Teacher extends ResourceOwner {
 	public void addServingResource(Server s) {
 		servingResources.add(s);
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "Teacher [Name=" + getDescription() + "]";
+	}
+
 }
