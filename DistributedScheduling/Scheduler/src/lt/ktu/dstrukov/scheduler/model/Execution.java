@@ -96,22 +96,17 @@ public class Execution extends AbstractBase {
 					compatible.add(r);
 			}
 
-			// see if its enough for this task
-			if (compatible.size() < minMax.getMin()) {
-				return null;
-			}
-
-			// at this place an initial group of students, a teacher and a task
-
-			// seems to be a time to initialize execution
-
-			// in case these are last resources and are all compatible + less
-			// then max limit
-			if (compatible.size() <= minMax.getMax()
-					&& compatible.size() == taskCompatible.size()) {
-				// put all of the resources in an Execution
-				execution.resources.addAll(compatible);
-				continue;
+			List<Resource> intercompatible = new ArrayList<Resource>();
+			Collections.shuffle(compatible);
+			for (Resource res : compatible) {
+				if (intercompatible.isEmpty())
+					intercompatible.add(res);
+				boolean allCompatible = true;
+				for (Resource sel : intercompatible) {
+					allCompatible &= sel.isCompatibleWithResource(res);
+				}
+				if (allCompatible)
+					intercompatible.add(res);
 			}
 
 			// Choose amount of resources between min and max
@@ -119,20 +114,21 @@ public class Execution extends AbstractBase {
 			// minMax.getMax());
 
 			// see if random amount is available
-			if (compatible.size() >= amountNeeded) {
+			if (intercompatible.size() >= amountNeeded) {
 				// TODO: it would be nice to make sure that there is place
 				// for another execution for this task
 
 				// make it random
-				Collections.shuffle(compatible);
+				Collections.shuffle(intercompatible);
 
 				// choose the amount of resources
-				List<Resource> chosen = compatible.subList(0, amountNeeded);
+				List<Resource> chosen = intercompatible
+						.subList(0, amountNeeded);
 
 				// add them to execution
 				execution.resources.addAll(chosen);
-			} else if (compatible.size() >= minMax.getMin()) {
-				execution.resources.addAll(compatible);
+			} else if (intercompatible.size() >= minMax.getMin()) {
+				execution.resources.addAll(intercompatible);
 			} else {
 				return null;
 			}

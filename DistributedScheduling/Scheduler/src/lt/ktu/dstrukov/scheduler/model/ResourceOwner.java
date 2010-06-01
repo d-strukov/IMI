@@ -64,7 +64,7 @@ public abstract class ResourceOwner extends AbstractBase implements
 	@Override
 	public String toString() {
 
-		return "ResourceOwner[" + getId() + "]";
+		return "ResourceOwner[" + description + "]";
 	}
 
 	@Override

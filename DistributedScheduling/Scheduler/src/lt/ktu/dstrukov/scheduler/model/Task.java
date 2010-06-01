@@ -5,7 +5,7 @@ import lt.ktu.dstrukov.scheduler.model.collections.CollectionItem;
 import lt.ktu.dstrukov.scheduler.model.misc.IDGenerator;
 
 /**
- * @author  Denis
+ * @author Denis
  */
 public class Task extends AbstractBase implements CollectionItem {
 
@@ -13,44 +13,40 @@ public class Task extends AbstractBase implements CollectionItem {
 	 * 
 	 */
 	private static final long serialVersionUID = -4895742755603521549L;
-	
-	private static int counter=-1;
-	
+
+	private static int counter = -1;
+
 	/**
-	 * @uml.property  name="idGenerator"
-	 * @uml.associationEnd  
+	 * @uml.property name="idGenerator"
+	 * @uml.associationEnd
 	 */
-	private IDGenerator idGenerator ;
-	
-	
+	private IDGenerator idGenerator;
+
 	@Override
 	protected IDGenerator getIDGenerator() {
-		if(idGenerator==null){
-			idGenerator = new IDGenerator(){
+		if (idGenerator == null) {
+			idGenerator = new IDGenerator() {
 
 				@Override
 				public int next() {
 					counter++;
 					return counter;
 				}
-				
+
 			};
 		}
 		return idGenerator;
 	}
-	
-	
+
 	@Override
 	public String toString() {
-		
-		return "Task["+getId()+"]";
-	}
 
+		return "Task[" + getId() + "]";
+	}
 
 	@Override
 	public void setCollection(BaseCollection<?> collection) {
-		
-		
+
 	}
 
 }
