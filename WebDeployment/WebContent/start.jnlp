@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
-<jnlp spec="1.0+" codebase="http://localhost:8080/WebDeployment"
+<jnlp spec="1.0+" codebase="http://localhost:8180/WebDeployment"
                   href="start.jnlp">
    <information>
       <title>Node</title>
