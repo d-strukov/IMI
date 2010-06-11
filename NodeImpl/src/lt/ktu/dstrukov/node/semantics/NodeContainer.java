@@ -48,6 +48,16 @@ public class NodeContainer {
 		try {
 
 			InetAddress addr = InetAddress.getLocalHost();
+			InetAddress[] addresses = InetAddress.getAllByName(addr
+					.getHostName());
+			for (InetAddress a : addresses) {
+				if (a.toString().contains("127.0.0.1")
+						|| a.toString().contains(":"))
+					continue;
+				addr = a;
+				break;
+			}
+			System.out.println("I am at: " + addr);
 			byte[] ipAddr = addr.getAddress();
 			hostname = addr.getHostName();
 			String ip = ((int) ipAddr[0] & 0xFF) + "."
@@ -110,13 +120,53 @@ public class NodeContainer {
 			}
 		});
 
-		th.setDaemon(true);
-		th.run();
+		// th.setDaemon(true);
+		th.start();
 
 	}
 
-	public void createNode() {
+	public void bindCentralAtIP(String ip, int port) {
+
+		String address = "rmi://" + ip + ":" + port + "/CentralSvc";
+
 		try {
+			System.out.println(address);
+			central = (ICentral) Naming.lookup(address);
+
+		} catch (MalformedURLException e) {
+			System.out.println("Error in address:" + address);
+		} catch (RemoteException e) {
+			if (port < 1111) {
+				port++;
+
+				bindCentralAtIP(ip, port);
+				if (central == null)
+					return;
+			}
+
+			// e.printStackTrace();
+		} catch (NotBoundException e) {
+			System.out.println("Service not found:" + address);
+		} catch (Exception e) {
+			System.out.println("Other Error:" + address);
+			if (port < 1111) {
+				port++;
+
+				bindCentralAtIP(ip, port);
+				if (central == null)
+					return;
+			}
+		}
+	}
+
+	public void createNode(String addr) {
+		try {
+			if (central == null) {
+				if (addr == "" || addr == null)
+					return;
+
+				bindCentralAtIP(addr, 1099);
+			}
 
 			Node node = new Node(this);
 			central.registerNode(bindNode(node, 0));

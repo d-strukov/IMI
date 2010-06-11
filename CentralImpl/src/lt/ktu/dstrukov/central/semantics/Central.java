@@ -219,7 +219,8 @@ public class Central extends UnicastRemoteObject implements ICentral {
 				ret &= n.isBusy();
 			} catch (RemoteException e) {
 				// broken node
-				registeredNodes.remove(n);
+				// registeredNodes.remove(n);
+				e.printStackTrace();
 			}
 		}
 		return ret;
